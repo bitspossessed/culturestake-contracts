@@ -1,0 +1,25 @@
+{
+  "name": "culturestake-contracts",
+  "version": "1.0.0",
+  "description": "Contracts for quadratic voting",
+  "main": "index.js",
+  "scripts": {
+    "test": "scripts/test.sh",
+    "ganache": "ganache-cli -d -i 5777 -m \"enable depend figure right kit daughter job giraffe news window tonight more\"",
+    "ganache:detach": "ganache-cli -d -i 5777 -m \"enable depend figure right kit daughter job giraffe news window tonight more\"",
+    "ganache:ci": "nohup ganache-cli -d -i 5777 -m \"enable depend figure right kit daughter job giraffe news window tonight more\" &"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lazaruslabs/culturestake-contracts.git"
+  },
+  "author": "ana0",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lazaruslabs/culturestake-contracts/issues"
+  },
+  "homepage": "https://github.com/lazaruslabs/culturestake-contracts#readme",
+  "dependencies": {
+    "truffle": "^5.1.7"
+  }
+}
