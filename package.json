@@ -1,7 +1,7 @@
 {
   "name": "culturestake-contracts",
   "version": "1.0.0",
-  "description": "Contracts for quadratic voting",
+  "description": "Culturestake contracts for quadratic voting",
   "main": "index.js",
   "scripts": {
     "test": "scripts/test.sh",
@@ -13,8 +13,10 @@
     "type": "git",
     "url": "git+https://github.com/lazaruslabs/culturestake-contracts.git"
   },
-  "author": "ana0",
-  "license": "ISC",
+  "contributors": [
+    "ana0"
+  ],
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/lazaruslabs/culturestake-contracts/issues"
   },
