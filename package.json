@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/lazaruslabs/culturestake-contracts#readme",
   "dependencies": {
+    "@gnosis.pm/safe-contracts": "^1.1.1-dev.1",
+    "save": "^2.4.0",
     "truffle": "^5.1.7"
   }
 }
