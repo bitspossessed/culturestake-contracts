@@ -8,10 +8,10 @@ contract('Admin', ([_, owner]) => {
   let admin;
 
   beforeEach(async () => {
-    admin = await Admin.new([owner], 1, { from: owner });
+    admin = await Admin.new([owner], { from: owner });
   });
 
-  // it('has the correct owner', async () => {
-  //   (await admin.owner()).should.be.equal(systemOwner);
-  // });
+  it('has the correct owner', async () => {
+    (await admin.getOwners()).should.be.deep.equal([owner]);
+  });
 });
