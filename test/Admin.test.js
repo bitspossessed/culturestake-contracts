@@ -4,14 +4,20 @@ require('chai')
 
 const Admin = artifacts.require('Admin');
 
-contract('Admin', ([_, owner]) => {
+contract('Admin', ([_, owner, secondOwner]) => {
   let admin;
 
-  beforeEach(async () => {
+  // beforeEach(async () => {
+  //   admin = await Admin.new([owner], { from: owner });
+  // });
+
+  it('has the correct owner', async () => {
     admin = await Admin.new([owner], { from: owner });
+    (await admin.getOwners()).should.be.deep.equal([owner]);
   });
 
   it('has the correct owner', async () => {
-    (await admin.getOwners()).should.be.deep.equal([owner]);
+    admin = await Admin.new([owner, secondOwner], { from: owner });
+    (await admin.getOwners()).should.be.deep.equal([owner, secondOwner]);
   });
 });
