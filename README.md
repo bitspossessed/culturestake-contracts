@@ -12,6 +12,8 @@ Requires [node version 10](https://nodejs.org/en/download/)
 
 Clone down this repo and `npm install`
 
+Copy the example env file and add your configuration details: `cp .env.example .env`
+
 With ganache running (`npm run ganache`), in a new console window, `node_modules/.bin/truffle compile` then `node_modules/.bin/truffle migrate`
 
 **Note:** This is a work in progress and this should be done only for contribution and exploration purposes.
