@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const Admin = artifacts.require('Admin');
 
 module.exports = function (deployer) {
