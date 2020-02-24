@@ -5,7 +5,7 @@ pragma solidity ^0.5.0;
 // This contract is meant as a "singleton" forwarding contract.
 // Eventually, it will be able to forward any transaction to
 // Any contract that is built to accept it.
-contract TxRelay {
+contract Relayer {
 
     // Note: This is a local nonce.
     // Different from the nonce defined w/in protocol.
