@@ -6,7 +6,7 @@
   "scripts": {
     "test": "scripts/test.sh",
     "migrate": "./node_modules/.bin/truffle migrate",
-    "ganache": "ganache-cli -d -i 5777 -m \"enable depend figure right kit daughter job giraffe news window tonight more\""
+    "ganache": "ganache-cli -d -i 5777"
   },
   "repository": {
     "type": "git",
