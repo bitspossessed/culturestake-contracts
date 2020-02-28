@@ -1,0 +1,290 @@
+{
+  "contractName": "Vote",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "recordVote",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.12+commit.7709ece9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"recordVote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/media/000/Documents/culturestake/culturestake-contracts/contracts/Vote.sol\":\"Vote\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/media/000/Documents/culturestake/culturestake-contracts/contracts/Vote.sol\":{\"keccak256\":\"0x766411994f73b115117186da549c97698c347087871766c5f3aa99d5b3d0ca2a\",\"urls\":[\"bzz-raw://4557e50146b5cfff7678e76f39271df7f4481eebe25f250cec0f718ecd391aa2\",\"dweb:/ipfs/QmX7bXfzYZHscYy6kVw6dDmuXEhaB5cEmxvCW4dcWbics5\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50608b8061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063b216204414602d575b600080fd5b6033604d565b604051808215151515815260200191505060405180910390f35b6000600190509056fea265627a7a723158209bc5291394b751368f4819591c92e77853435f4ee2aa9b0d9588b2248e7b6a9f64736f6c634300050c0032",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063b216204414602d575b600080fd5b6033604d565b604051808215151515815260200191505060405180910390f35b6000600190509056fea265627a7a723158209bc5291394b751368f4819591c92e77853435f4ee2aa9b0d9588b2248e7b6a9f64736f6c634300050c0032",
+  "sourceMap": "25:86:3:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:86:3;;;;;;;",
+  "deployedSourceMap": "25:86:3:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:86:3;;;;;;;;;;;;;;;;;;;43:66;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;81:4;100;93:11;;43:66;:::o",
+  "source": "pragma solidity ^0.5.0;\n\ncontract Vote {\n  function recordVote() public returns (bool) {\n    return true;\n  }\n}",
+  "sourcePath": "/media/000/Documents/culturestake/culturestake-contracts/contracts/Vote.sol",
+  "ast": {
+    "absolutePath": "/media/000/Documents/culturestake/culturestake-contracts/contracts/Vote.sol",
+    "exportedSymbols": {
+      "Vote": [
+        649
+      ]
+    },
+    "id": 650,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 640,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:3"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 649,
+        "linearizedBaseContracts": [
+          649
+        ],
+        "name": "Vote",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 647,
+              "nodeType": "Block",
+              "src": "87:22:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "hexValue": "74727565",
+                    "id": 645,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "bool",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "100:4:3",
+                    "subdenomination": null,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    },
+                    "value": "true"
+                  },
+                  "functionReturnParameters": 644,
+                  "id": 646,
+                  "nodeType": "Return",
+                  "src": "93:11:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 648,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "recordVote",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 641,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "62:2:3"
+            },
+            "returnParameters": {
+              "id": 644,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 643,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 648,
+                  "src": "81:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 642,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "81:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "80:6:3"
+            },
+            "scope": 649,
+            "src": "43:66:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 650,
+        "src": "25:86:3"
+      }
+    ],
+    "src": "0:111:3"
+  },
+  "legacyAST": {
+    "absolutePath": "/media/000/Documents/culturestake/culturestake-contracts/contracts/Vote.sol",
+    "exportedSymbols": {
+      "Vote": [
+        649
+      ]
+    },
+    "id": 650,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 640,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:3"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 649,
+        "linearizedBaseContracts": [
+          649
+        ],
+        "name": "Vote",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 647,
+              "nodeType": "Block",
+              "src": "87:22:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "hexValue": "74727565",
+                    "id": 645,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "bool",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "100:4:3",
+                    "subdenomination": null,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    },
+                    "value": "true"
+                  },
+                  "functionReturnParameters": 644,
+                  "id": 646,
+                  "nodeType": "Return",
+                  "src": "93:11:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 648,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "recordVote",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 641,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "62:2:3"
+            },
+            "returnParameters": {
+              "id": 644,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 643,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 648,
+                  "src": "81:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 642,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "81:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "80:6:3"
+            },
+            "scope": 649,
+            "src": "43:66:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 650,
+        "src": "25:86:3"
+      }
+    ],
+    "src": "0:111:3"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.12+commit.7709ece9.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.20",
+  "updatedAt": "2020-02-28T17:12:44.346Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

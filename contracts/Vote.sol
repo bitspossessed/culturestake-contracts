@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
 contract Vote {
-  function Vote() public returns (bool) {
+  function recordVote() public returns (bool) {
     return true;
   }
 }
