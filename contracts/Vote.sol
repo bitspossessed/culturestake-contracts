@@ -1,7 +1,10 @@
 pragma solidity ^0.5.0;
 
 contract Vote {
-  function recordVote() public returns (bool) {
+  address voter;
+
+  function recordVote(address sender) public returns (bool) {
+    voter = sender;
     return true;
   }
 }
