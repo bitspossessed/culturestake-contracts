@@ -491,11 +491,12 @@
       "events": {},
       "links": {},
       "address": "0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7",
-      "transactionHash": "0x941e634ac87e80288b83a48ea351db5bcbedee5e5c448ceb6e652ce8f2c716e8"
+      "transactionHash": "0xcbc9cc0d4f12be5318cd59823a80de2d68eb2857f3a172970fbfd524afb38a4a"
     }
   },
   "schemaVersion": "3.0.20",
-  "updatedAt": "2020-03-03T14:27:21.705Z",
+  "updatedAt": "2020-03-03T14:54:41.437Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },
