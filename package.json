@@ -1,13 +1,12 @@
 {
   "name": "culturestake-contracts",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Culturestake contracts for quadratic voting",
   "main": "index.js",
   "scripts": {
     "test": "scripts/test.sh",
-    "ganache": "ganache-cli -d -i 5777 -m \"enable depend figure right kit daughter job giraffe news window tonight more\"",
-    "ganache:detach": "ganache-cli -d -i 5777 -m \"enable depend figure right kit daughter job giraffe news window tonight more\"",
-    "ganache:ci": "nohup ganache-cli -d -i 5777 -m \"enable depend figure right kit daughter job giraffe news window tonight more\" &"
+    "migrate": "./node_modules/.bin/truffle migrate",
+    "ganache": "ganache-cli -d -i 5777"
   },
   "repository": {
     "type": "git",
