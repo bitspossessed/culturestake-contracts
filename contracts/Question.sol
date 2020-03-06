@@ -3,12 +3,13 @@ pragma solidity ^0.5.0;
 import './Admin.sol';
 
 contract Question {
-  address admin;
-  uint8 questionType;
-  bytes32 question;
-  bool active;
-  uint256 maxVoteTokens;
-  uint256 votes;
+  address public admin;
+  uint8 public questionType;
+  bytes32 public question;
+  bytes32 public festival;
+  bool public active;
+  uint256 public maxVoteTokens;
+  uint256 public votes;
   mapping (bytes32 => Answer) answers;
   mapping (address => bool) hasVoted;
 
@@ -36,13 +37,15 @@ contract Question {
   constructor(
     uint8 _questionType,
     bytes32 _question,
-    uint256 _maxVoteTokens
-    ) public {
+    uint256 _maxVoteTokens,
+    bytes32 _festival
+  ) public {
     admin = msg.sender;
     active = true;
     maxVoteTokens = _maxVoteTokens;
     questionType = _questionType;
     question = _question;
+    festival = _festival;
   }
 
   function deactivateQuestion() public authorized {
@@ -79,7 +82,8 @@ contract Question {
 
     require(!hasVoted[sender]);
     require(_answers.length == _voteTokens.length);
-    //require isValidVotingBooth(_festival, _answers, _nonce, sigV, sigR, sigS)
+    //require(festival == _festival);
+    //require validateVotingBooth(_festival, _answers, _nonce, sigV, sigR, sigS)
     //require no duplicates in _answers array
     //require all answers array are in signed answers
 

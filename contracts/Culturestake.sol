@@ -1,6 +1,7 @@
 pragma solidity ^0.5.0;
 
 import './Admin.sol';
+import './Question.sol';
 
 contract Culturestake is Admin {
   mapping (bytes32 => Festival) festivals;
@@ -36,26 +37,64 @@ contract Culturestake is Admin {
     uint256 _nonce,
     uint8 sigV,
     bytes32 sigR,
-    bytes32 sigS) public returns (bool) {
-      bytes32 h = keccak256(abi.encodePacked(byte(0x19), byte(0), _answers, _nonce));
+    bytes32 sigS
+  ) public view returns (address) {
+      //bytes32 h = keccak256(abi.encodePacked(byte(0x19), byte(0), _answers, _nonce));
+      bytes32 h = getHash(_answers, _nonce);
       address addressFromSig = ecrecover(h, sigV, sigR, sigS);
-      require(votingBooths[addressFromSig].active);
-      require(votingBooths[addressFromSig].festival == _festival);
-      require(!votingBooths[addressFromSig].nonces[_nonce]);
-      votingBooths[addressFromSig].nonces[_nonce] = true;
-      return true;
+      if (!votingBooths[addressFromSig].active) return address(0);
+      if (!(votingBooths[addressFromSig].festival == _festival)) return address(0);
+      if (!isValidVotingNonce(addressFromSig, _nonce)) return address(0);
+      return addressFromSig;
+  }
+
+  function getHash(
+    bytes32[] memory _answers,
+    uint256 _nonce
+  ) public view returns (bytes32) {
+    return keccak256(abi.encode(_answers, _nonce));
+  }
+
+  // function getEncoding(
+  //   bytes32[] memory _answers,
+  //   uint256 _nonce
+  // ) public view returns (bytes memory) {
+  //   return abi.encode(_answers, _nonce);
+  // }
+
+  function validateVotingBooth(
+    bytes32 _festival,
+    bytes32[] memory _answers,
+    uint256 _nonce,
+    uint8 sigV,
+    bytes32 sigR,
+    bytes32 sigS
+  ) public returns (bool) {
+    address addressFromSig = isValidVotingBooth(_festival, _answers, _nonce, sigV, sigR, sigS);
+    require(addressFromSig != address(0));
+    votingBooths[addressFromSig].nonces[_nonce] = true;
+    return true;
   }
 
   function initVotingBooth(
     bytes32 _festival,
     address _booth
   ) public authorized {
+      require(isValidFestival(_festival));
       votingBooths[_booth].active = true;
       votingBooths[_booth].festival = _festival;
   }
 
   function deactivateVotingBooth(address _booth) public authorized {
     votingBooths[_booth].active = false;
+  }
+
+  function getVotingBooth(address _booth) public view returns (bool, bytes32) {
+    return (votingBooths[_booth].active, votingBooths[_booth].festival);
+  }
+
+  function isValidVotingNonce(address _booth, uint256 _nonce) public view returns (bool) {
+    return (!votingBooths[_booth].nonces[_nonce]);
   }
 
   function initFestival(
@@ -77,5 +116,14 @@ contract Culturestake is Admin {
       festivals[_festival].createdAt,
       festivals[_festival].duration
     );
+  }
+
+  function initQuestion(
+    uint8 _questionType,
+    bytes32 _question,
+    uint256 _maxVoteTokens,
+    bytes32 _festival
+  ) public authorized {
+    new Question(_questionType, _question, _maxVoteTokens, _festival);
   }
 }
