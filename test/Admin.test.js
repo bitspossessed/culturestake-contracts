@@ -20,6 +20,11 @@ contract('Admin', ([_, owner, secondOwner, attacker]) => {
     (await admin.getOwners()).should.be.deep.equal([owner, secondOwner]);
   });
 
+  it('does not need to be deployed by owner', async () => {
+    admin = await Admin.new([secondOwner], { from: owner });
+    (await admin.getOwners()).should.be.deep.equal([secondOwner]);
+  });
+
   it('can swap owner', async () => {
     admin = await Admin.new([owner], { from: owner });
     await admin.swapOwner(SENTINEL_OWNERS, owner, secondOwner, { from: owner });
