@@ -85,7 +85,6 @@ contract Question {
     //require(festival == _festival);
     //require validateVotingBooth(_festival, _answers, _nonce, sigV, sigR, sigS)
     //require no duplicates in _answers array
-    //require all answers array are in signed answers
 
     for (uint i = 0; i < _answers.length; i++) {
       require(answers[_answers[i]].active);
