@@ -6,6 +6,7 @@ import './Question.sol';
 contract Culturestake is Admin {
   mapping (bytes32 => Festival) festivals;
   mapping (address => VotingBooth) votingBooths;
+  mapping (address => bool) questions;
 
   struct VotingBooth {
     bool active;
@@ -18,6 +19,11 @@ contract Culturestake is Admin {
     uint256 createdAt;
     uint256 duration;
     mapping (address => bool) questions;
+  }
+
+  modifier onlyQuestions() {
+      require(questions[msg.sender], "Method can only be called by questions");
+      _;
   }
 
   constructor(address[] memory _owners) public Admin(_owners) {}
@@ -39,7 +45,6 @@ contract Culturestake is Admin {
     bytes32 sigR,
     bytes32 sigS
   ) public view returns (address) {
-      //bytes32 h = keccak256(abi.encodePacked(byte(0x19), byte(0), _answers, _nonce));
       bytes32 h = getHash(_answers, _nonce);
       address addressFromSig = ecrecover(h, sigV, sigR, sigS);
       if (!votingBooths[addressFromSig].active) return address(0);
@@ -55,13 +60,6 @@ contract Culturestake is Admin {
     return keccak256(abi.encode(_answers, _nonce));
   }
 
-  // function getEncoding(
-  //   bytes32[] memory _answers,
-  //   uint256 _nonce
-  // ) public view returns (bytes memory) {
-  //   return abi.encode(_answers, _nonce);
-  // }
-
   function validateVotingBooth(
     bytes32 _festival,
     bytes32[] memory _answers,
@@ -72,8 +70,16 @@ contract Culturestake is Admin {
   ) public returns (bool) {
     address addressFromSig = isValidVotingBooth(_festival, _answers, _nonce, sigV, sigR, sigS);
     require(addressFromSig != address(0));
-    votingBooths[addressFromSig].nonces[_nonce] = true;
+    _burnNonce(addressFromSig, _nonce);
     return true;
+  }
+
+  function _burnNonce(address _booth, uint256 _nonce) internal {
+    votingBooths[_booth].nonces[_nonce] = true;
+  }
+
+  function burnNonce(address _booth, uint256 _nonce) public onlyQuestions {
+    _burnNonce(_booth, _nonce);
   }
 
   function initVotingBooth(
