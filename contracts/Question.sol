@@ -21,6 +21,8 @@ contract Question {
     uint256 votes;
   }
 
+  event InitAnswer(bytes32 answer);
+
   modifier authorized() {
       require(CulturestakeI(admin).isOwner(msg.sender), "Method can only be called by owner");
       _;
@@ -47,6 +49,7 @@ contract Question {
   function initAnswer(bytes32 _answer) public authorized {
     answers[_answer].active = true;
     answers[_answer].answer = _answer;
+    emit InitAnswer(_answer);
   }
 
   function deactivateAnswer(bytes32 _answer) public authorized {

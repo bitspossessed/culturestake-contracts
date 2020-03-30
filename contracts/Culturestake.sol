@@ -21,6 +21,8 @@ contract Culturestake is Admin {
     mapping (address => bool) questions;
   }
 
+  event InitQuestion(address questionAddress, uint8 questionType, bytes32 question);
+
   modifier onlyQuestions() {
       require(questions[msg.sender], "Method can only be called by questions");
       _;
@@ -130,6 +132,7 @@ contract Culturestake is Admin {
     uint256 _maxVoteTokens,
     bytes32 _festival
   ) public authorized {
-    new Question(_questionType, _question, _maxVoteTokens, _festival);
+    Question questionContract = new Question(_questionType, _question, _maxVoteTokens, _festival);
+    emit InitQuestion(address(questionContract), _questionType, _question);
   }
 }
