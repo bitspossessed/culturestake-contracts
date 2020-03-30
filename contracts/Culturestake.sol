@@ -132,6 +132,7 @@ contract Culturestake is Admin {
     uint256 _maxVoteTokens,
     bytes32 _festival
   ) public authorized {
+    require(isValidFestival(_festival));
     Question questionContract = new Question(_questionType, _question, _maxVoteTokens, _festival);
     emit InitQuestion(address(questionContract), _questionType, _question);
   }
