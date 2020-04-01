@@ -5,3 +5,4 @@ module.exports = function (deployer, network, accounts) {
   const address2 = process.env.ADDR2 || accounts[1];
   deployer.deploy(Culturestake, [address1, address2]);
 };
+

@@ -126,6 +126,10 @@ contract Culturestake is Admin {
     );
   }
 
+  function deactivateQuestion(address _question) public authorized {
+    questions[_question] = false;
+  }
+
   function initQuestion(
     uint8 _questionType,
     bytes32 _question,
@@ -134,6 +138,7 @@ contract Culturestake is Admin {
   ) public authorized {
     require(isValidFestival(_festival));
     Question questionContract = new Question(_questionType, _question, _maxVoteTokens, _festival);
+    questions[address(questionContract)] = true;
     emit InitQuestion(address(questionContract), _questionType, _question);
   }
 }
