@@ -23,7 +23,7 @@ contract Question {
   event InitAnswer(bytes32 answer);
 
   modifier authorized() {
-      require(CulturestakeI(admin).isOwner(msg.sender), "Method can only be called by owner");
+      require(CulturestakeI(admin).isOwner(msg.sender), "Must be an admin" );
       _;
   }
 
@@ -48,10 +48,6 @@ contract Question {
 
   function deactivateAnswer(bytes32 _answer) public authorized {
     answers[_answer].active = false;
-  }
-
-  function authorizedTest(address) public view returns (bool) {
-    return CulturestakeI(admin).isOwner(msg.sender);
   }
 
   function getAnswer(bytes32 _answer) public returns (bool, uint256, uint256, uint256) {
