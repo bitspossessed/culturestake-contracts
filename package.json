@@ -1,6 +1,6 @@
 {
   "name": "culturestake-contracts",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Culturestake contracts for quadratic voting",
   "main": "index.js",
   "scripts": {
