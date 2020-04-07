@@ -6,7 +6,7 @@ import './Question.sol';
 contract Culturestake is Admin {
   mapping (bytes32 => Festival) festivals;
   mapping (address => VotingBooth) votingBooths;
-  mapping (address => bool) questions;
+  mapping (address => bool) public questions;
 
   struct VotingBooth {
     bool active;
