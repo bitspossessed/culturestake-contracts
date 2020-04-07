@@ -96,8 +96,7 @@ contract Question {
     bytes32[] memory _answers,
     uint256[] memory _voteTokens,
     address _booth,
-    uint256 _nonce,
-    address sender
+    uint256 _nonce
   ) public authorized returns (bool) {
     // this method assumes all checks have been done by an admin
     for (uint i = 0; i < _answers.length; i++) {
@@ -105,7 +104,6 @@ contract Question {
       answers[_answers[i]].voteTokens = answers[_answers[i]].voteTokens + _voteTokens[i];
       answers[_answers[i]].votePower = answers[_answers[i]].votePower + sqrt(_voteTokens[i]);
       CulturestakeI(admin).burnNonce(_booth, _nonce);
-      hasVoted[sender] = true;
       //add event
     }
     return true;
