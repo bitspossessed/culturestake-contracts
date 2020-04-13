@@ -1,8 +1,12 @@
 pragma solidity ^0.5.0;
 
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+
 import './interfaces/CulturestakeI.sol';
 
 contract Question {
+  using SafeMath for uint256;
+
   address public admin;
   uint8 public questionType;
   bytes32 public question;
@@ -87,9 +91,9 @@ contract Question {
     hasVoted[msg.sender] = true;
     for (uint i = 0; i < _answers.length; i++) {
       require(answers[_answers[i]].active);
-      answers[_answers[i]].votes = answers[_answers[i]].votes + 1;
-      answers[_answers[i]].voteTokens = answers[_answers[i]].voteTokens + _voteTokens[i];
-      answers[_answers[i]].votePower = answers[_answers[i]].votePower + sqrt(_voteTokens[i]);
+      answers[_answers[i]].votes = answers[_answers[i]].votes.add(1);
+      answers[_answers[i]].voteTokens = answers[_answers[i]].voteTokens.add(_voteTokens[i]);
+      answers[_answers[i]].votePower = answers[_answers[i]].votePower.add(sqrt(_voteTokens[i]));
       //add event
     }
     return true;
@@ -103,10 +107,10 @@ contract Question {
   ) public authorized returns (bool) {
     // this method assumes all checks have been done by an admin
     for (uint i = 0; i < _answers.length; i++) {
-      answers[_answers[i]].votes = answers[_answers[i]].votes + 1;
-      answers[_answers[i]].voteTokens = answers[_answers[i]].voteTokens + _voteTokens[i];
+      answers[_answers[i]].votes = answers[_answers[i]].votes.add(1);
+      answers[_answers[i]].voteTokens = answers[_answers[i]].voteTokens.add(_voteTokens[i]);
       uint256 votePower = sqrt(_voteTokens[i]);
-      answers[_answers[i]].votePower = answers[_answers[i]].votePower + votePower;
+      answers[_answers[i]].votePower = answers[_answers[i]].votePower.add(votePower);
       CulturestakeI(admin).burnNonce(_booth, _nonce);
       emit Vote(_answers[i], _voteTokens[i], votePower, answers[_answers[i]].votes, _booth);
       //add event

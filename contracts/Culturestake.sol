@@ -1,9 +1,13 @@
 pragma solidity ^0.5.0;
 
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+
 import './Admin.sol';
 import './Question.sol';
 
 contract Culturestake is Admin {
+  using SafeMath for uint256;
+
   mapping (bytes32 => Festival) festivals;
   mapping (address => VotingBooth) votingBooths;
   mapping (address => bool) public questions;
@@ -42,7 +46,7 @@ contract Culturestake is Admin {
     // case festival hasn't started
     if (festivals[_festival].startTime > block.timestamp) return false;
     // case festival has expired
-    uint256 festivalEnd = festivals[_festival].startTime + festivals[_festival].duration;
+    uint256 festivalEnd = festivals[_festival].startTime.add(festivals[_festival].duration);
     if (festivalEnd <= block.timestamp) return false;
     return true;
   }
