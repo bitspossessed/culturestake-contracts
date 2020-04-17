@@ -43,7 +43,7 @@ contract('Culturestake', ([_, owner, attacker]) => {
 
   it('only owner can create festival', async () => {
     await assertRevert(
-      culturestake.initFestival(festival, timestamp(), duration, { from: attacker })
+      culturestake.initFestival(festival, timestamp(), duration, { from: attacker }),
     );
   });
 

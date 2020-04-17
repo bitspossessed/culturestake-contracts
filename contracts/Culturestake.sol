@@ -25,13 +25,13 @@ contract Culturestake is Admin {
     mapping (address => bool) questions;
   }
 
-  event InitQuestion(bytes32 festival, address questionAddress, uint8 questionType, bytes32 question);
-  event InitFestival(bytes32 festival, uint256 startTime, uint256 duration);
-  event InitVotingBooth(bytes32 festival, address boothAddress);
+  event InitQuestion(bytes32 indexed festival, address indexed questionAddress, uint8 questionType, bytes32 question);
+  event InitFestival(bytes32 indexed festival, uint256 startTime, uint256 duration);
+  event InitVotingBooth(bytes32 indexed festival, address indexed boothAddress);
 
-  event DeactivateQuestion(address questionAddress);
-  event DeactivateFestival(bytes32 festival);
-  event DeactivateVotingBooth(address boothAddress);
+  event DeactivateQuestion(address indexed questionAddress);
+  event DeactivateFestival(bytes32 indexed festival);
+  event DeactivateVotingBooth(address indexed boothAddress);
 
   modifier onlyQuestions() {
       require(questions[msg.sender], "Method can only be called by questions");
