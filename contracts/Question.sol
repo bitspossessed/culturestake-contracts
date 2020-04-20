@@ -26,7 +26,7 @@ contract Question {
 
   event InitAnswer(bytes32 indexed answer);
   event DeactivateAnswer(bytes32 indexed answer);
-  event Vote(bytes32 indexed answer, uint256 voteTokens, uint256 votePower, uint256 votes, address booth);
+  event Vote(bytes32 indexed answer, uint256 voteTokens, uint256 votePower, uint256 votes, address booth, uint256 nonce);
 
   modifier authorized() {
       require(CulturestakeI(admin).isOwner(msg.sender), "Must be an admin" );
@@ -112,8 +112,7 @@ contract Question {
       uint256 votePower = sqrt(_voteTokens[i]);
       answers[_answers[i]].votePower = answers[_answers[i]].votePower.add(votePower);
       CulturestakeI(admin).burnNonce(_booth, _nonce);
-      emit Vote(_answers[i], _voteTokens[i], votePower, answers[_answers[i]].votes, _booth);
-      //add event
+      emit Vote(_answers[i], _voteTokens[i], votePower, answers[_answers[i]].votes, _booth, _nonce);
     }
     return true;
   }
