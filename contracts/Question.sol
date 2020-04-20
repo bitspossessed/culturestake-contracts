@@ -26,7 +26,14 @@ contract Question {
 
   event InitAnswer(bytes32 indexed answer);
   event DeactivateAnswer(bytes32 indexed answer);
-  event Vote(bytes32 indexed answer, uint256 voteTokens, uint256 votePower, uint256 votes, address booth, uint256 nonce);
+  event Vote(
+    bytes32 indexed answer,
+    uint256 voteTokens,
+    uint256 votePower,
+    uint256 votes,
+    address booth,
+    uint256 nonce
+  );
 
   modifier authorized() {
       require(CulturestakeI(admin).isOwner(msg.sender), "Must be an admin" );
