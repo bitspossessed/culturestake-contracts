@@ -9,8 +9,6 @@ module.exports = function (deployer) {
     .then(async (culturestake) => {
       const logs = await culturestake.getPastEvents('InitQuestion', { fromBlock: 0, toBlock: 'latest' });
       const question = await Question.at(logs[0].returnValues.questionAddress);
-      const isOwner = await culturestake.isOwner('0x1Db6159dC5BD96883c20B172648670dD253ED63E');
-      console.log('isOwner', isOwner);
       await question.initAnswer(answer1);
       await question.initAnswer(answer2);
       await question.initAnswer(answer3);
