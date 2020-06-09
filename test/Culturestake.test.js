@@ -7,7 +7,7 @@ const { getTimestampFromTx } = require('./helpers/getTimestamp');
 const { bn } = require('./helpers/constants');
 const { increase } = require('./helpers/increaseTime');
 const { ZERO_ADDRESS, timestamp } = require('./helpers/constants');
-
+const expectEvent = require('./helpers/expectEvent');
 
 require('chai')
   .use(require('chai-bn')(web3.utils.BN))
@@ -28,6 +28,16 @@ contract('Culturestake', ([_, owner, attacker]) => {
   it('owner can create festival', async () => {
     await culturestake.initFestival(festival, timestamp(), duration, { from: owner });
     ((await culturestake.getFestival(festival))[0]).should.be.equal(true);
+  });
+
+  it('creating festival should emit InitFestival', async () => {
+    const startTime = timestamp();
+    await culturestake.initFestival(festival, startTime, duration, { from: owner });
+    const logs = await culturestake.getPastEvents('InitFestival', { fromBlock: 0, toBlock: 'latest' });
+    const event = expectEvent.inLogs(logs, 'InitFestival', {
+      festival,
+    });
+    return event.args.startTime.should.be.bignumber.equal(bn(startTime));
   });
 
   it('should have right duration', async () => {
@@ -58,6 +68,15 @@ contract('Culturestake', ([_, owner, attacker]) => {
       ((await culturestake.getFestival(festival))[0]).should.be.equal(false);
     });
 
+    it('should emit DeactivateFestival', async () => {
+      await culturestake.deactivateFestival(festival, { from: owner });
+      const logs = await culturestake.getPastEvents('DeactivateFestival', { fromBlock: 0, toBlock: 'latest' });
+      const event = expectEvent.inLogs(logs, 'DeactivateFestival', {
+        festival,
+      });
+      return event.args.festival.should.be.equal(festival);
+    });
+
     it('only owner can deactivate festival', async () => {
       await assertRevert(culturestake.deactivateFestival(festival, { from: attacker }));
     });
@@ -86,6 +105,15 @@ contract('Culturestake', ([_, owner, attacker]) => {
       ((await culturestake.getVotingBooth(booth.address))[0]).should.be.equal(true);
     });
 
+    it('should emit InitVotingBooth', async () => {
+      await culturestake.initVotingBooth(festival, booth.address, { from: owner });
+      const logs = await culturestake.getPastEvents('InitVotingBooth', { fromBlock: 0, toBlock: 'latest' });
+      const event = expectEvent.inLogs(logs, 'InitVotingBooth', {
+        festival,
+      });
+      return event.args.boothAddress.should.be.equal(booth.address);
+    });
+
     it('votingbooth is attached to correct festival', async () => {
       await culturestake.initVotingBooth(festival, booth.address, { from: owner });
       ((await culturestake.getVotingBooth(booth.address))[1]).should.be.equal(festival);
@@ -101,6 +129,14 @@ contract('Culturestake', ([_, owner, attacker]) => {
       await culturestake.initVotingBooth(festival, booth.address, { from: owner });
       await culturestake.deactivateVotingBooth(booth.address, { from: owner });
       ((await culturestake.getVotingBooth(booth.address))[0]).should.be.equal(false);
+    });
+
+    it('should emit DeactivateVotingBooth', async () => {
+      await culturestake.initVotingBooth(festival, booth.address, { from: owner });
+      await culturestake.deactivateVotingBooth(booth.address, { from: owner });
+      const logs = await culturestake.getPastEvents('DeactivateVotingBooth', { fromBlock: 0, toBlock: 'latest' });
+      const event = expectEvent.inLogs(logs, 'DeactivateVotingBooth');
+      return event.args.boothAddress.should.be.equal(booth.address);
     });
 
     it('only owner can deactivate votingbooth', async () => {
