@@ -1,11 +1,11 @@
 {
   "name": "culturestake-contracts",
-  "version": "1.0.10",
+  "version": "1.0.16",
   "description": "Culturestake contracts for quadratic voting",
   "main": "index.js",
   "scripts": {
     "test": "scripts/test.sh",
-    "migrate": "./node_modules/.bin/truffle migrate",
+    "migrate": "./node_modules/.bin/truffle migrate --reset",
     "compile": "./node_modules/.bin/truffle compile",
     "ganache": "ganache-cli -d -i 5777"
   },
@@ -33,6 +33,7 @@
   "dependencies": {
     "ethereumjs-abi": "^0.6.8",
     "ethereumjs-util": "^6.2.0",
+    "openzeppelin-solidity": "^2.5.0",
     "solidity-sha3": "^0.4.1",
     "web3": "^1.2.6"
   }

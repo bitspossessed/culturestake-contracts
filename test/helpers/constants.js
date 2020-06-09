@@ -7,8 +7,11 @@ const BN = web3.utils.BN;
 
 const bn = number => new BN(number);
 
+const timestamp = () => Math.floor((new Date()).getTime() / 1000);
+
 module.exports = {
   ZERO_ADDRESS,
   SENTINEL_OWNERS,
   bn,
+  timestamp,
 };

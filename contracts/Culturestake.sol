@@ -1,9 +1,13 @@
 pragma solidity ^0.5.0;
 
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+
 import './Admin.sol';
 import './Question.sol';
 
 contract Culturestake is Admin {
+  using SafeMath for uint256;
+
   mapping (bytes32 => Festival) festivals;
   mapping (address => VotingBooth) votingBooths;
   mapping (address => bool) public questions;
@@ -16,12 +20,18 @@ contract Culturestake is Admin {
 
   struct Festival {
     bool active;
-    uint256 createdAt;
+    uint256 startTime;
     uint256 duration;
     mapping (address => bool) questions;
   }
 
-  event InitQuestion(address questionAddress, uint8 questionType, bytes32 question);
+  event InitQuestion(bytes32 indexed festival, address indexed questionAddress, uint8 questionType, bytes32 question);
+  event InitFestival(bytes32 indexed festival, uint256 startTime, uint256 duration);
+  event InitVotingBooth(bytes32 indexed festival, address indexed boothAddress);
+
+  event DeactivateQuestion(address indexed questionAddress);
+  event DeactivateFestival(bytes32 indexed festival);
+  event DeactivateVotingBooth(address indexed boothAddress);
 
   modifier onlyQuestions() {
       require(questions[msg.sender], "Method can only be called by questions");
@@ -33,8 +43,10 @@ contract Culturestake is Admin {
   function isValidFestival(bytes32 _festival) public view returns (bool) {
     // case festival has been manually deactivated
     if (!festivals[_festival].active) return false;
+    // case festival hasn't started
+    if (festivals[_festival].startTime > block.timestamp) return false;
     // case festival has expired
-    uint256 festivalEnd = festivals[_festival].createdAt + festivals[_festival].duration;
+    uint256 festivalEnd = festivals[_festival].startTime.add(festivals[_festival].duration);
     if (festivalEnd <= block.timestamp) return false;
     return true;
   }
@@ -91,10 +103,12 @@ contract Culturestake is Admin {
       require(isValidFestival(_festival));
       votingBooths[_booth].active = true;
       votingBooths[_booth].festival = _festival;
+      emit InitVotingBooth(_festival, _booth);
   }
 
   function deactivateVotingBooth(address _booth) public authorized {
     votingBooths[_booth].active = false;
+    emit DeactivateVotingBooth(_booth);
   }
 
   function getVotingBooth(address _booth) public view returns (bool, bytes32) {
@@ -107,27 +121,31 @@ contract Culturestake is Admin {
 
   function initFestival(
     bytes32 _festival,
+    uint256 _startTime,
     uint256 _duration
   ) public authorized {
     festivals[_festival].active = true;
-    festivals[_festival].createdAt = block.timestamp;
+    festivals[_festival].startTime = _startTime;
     festivals[_festival].duration = _duration;
+    emit InitFestival(_festival, _startTime, _duration);
   }
 
   function deactivateFestival(bytes32 _festival) public authorized {
     festivals[_festival].active = false;
+    emit DeactivateFestival(_festival);
   }
 
   function getFestival(bytes32 _festival) public view returns (bool, uint256, uint256) {
     return (
       festivals[_festival].active,
-      festivals[_festival].createdAt,
+      festivals[_festival].startTime,
       festivals[_festival].duration
     );
   }
 
   function deactivateQuestion(address _question) public authorized {
     questions[_question] = false;
+    emit DeactivateQuestion(_question);
   }
 
   function initQuestion(
@@ -139,6 +157,6 @@ contract Culturestake is Admin {
     require(isValidFestival(_festival));
     Question questionContract = new Question(_questionType, _question, _maxVoteTokens, _festival);
     questions[address(questionContract)] = true;
-    emit InitQuestion(address(questionContract), _questionType, _question);
+    emit InitQuestion(_festival, address(questionContract), _questionType, _question);
   }
 }
