@@ -149,14 +149,12 @@ contract Culturestake is Admin {
   }
 
   function initQuestion(
-    uint8 _questionType,
-    bytes32 _question,
     uint256 _maxVoteTokens,
     bytes32 _festival
   ) public authorized {
     require(isValidFestival(_festival));
-    Question questionContract = new Question(_questionType, _question, _maxVoteTokens, _festival);
+    Question questionContract = new Question(_maxVoteTokens, _festival);
     questions[address(questionContract)] = true;
-    emit InitQuestion(_festival, address(questionContract), _questionType, _question);
+    emit InitQuestion(_festival, address(questionContract));
   }
 }

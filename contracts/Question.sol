@@ -8,8 +8,6 @@ contract Question {
   using SafeMath for uint256;
 
   address public admin;
-  uint8 public questionType;
-  bytes32 public question;
   bytes32 public festival;
   uint256 public maxVoteTokens;
   uint256 public votes;
@@ -41,15 +39,11 @@ contract Question {
   }
 
   constructor(
-    uint8 _questionType,
-    bytes32 _question,
     uint256 _maxVoteTokens,
     bytes32 _festival
   ) public {
     admin = msg.sender;
     maxVoteTokens = _maxVoteTokens;
-    questionType = _questionType;
-    question = _question;
     festival = _festival;
   }
 

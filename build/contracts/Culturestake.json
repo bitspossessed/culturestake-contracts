@@ -14874,9 +14874,166 @@
     "name": "solc",
     "version": "0.5.12+commit.7709ece9.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "5777": {
+      "events": {
+        "0x9465fa0c962cc76958e6373a993326400c1c94f8be2fe3a952adfa7f60b2ea26": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "AddedOwner",
+          "type": "event",
+          "signature": "0x9465fa0c962cc76958e6373a993326400c1c94f8be2fe3a952adfa7f60b2ea26"
+        },
+        "0x6b7ca7d367bb287c2641eecf063be04b9c10b283dc77970ae7f9c7cedf14a02e": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "festival",
+              "type": "bytes32"
+            }
+          ],
+          "name": "DeactivateFestival",
+          "type": "event",
+          "signature": "0x6b7ca7d367bb287c2641eecf063be04b9c10b283dc77970ae7f9c7cedf14a02e"
+        },
+        "0xf1121d811828d83c069d2b6f4affb749deb9926861c494b0d7412d7ee68f3f0c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "questionAddress",
+              "type": "address"
+            }
+          ],
+          "name": "DeactivateQuestion",
+          "type": "event",
+          "signature": "0xf1121d811828d83c069d2b6f4affb749deb9926861c494b0d7412d7ee68f3f0c"
+        },
+        "0xafbb4aa0f013cf60d928c38db1e3425d09ca11fdcd41516eee577abcef7cd2a4": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "boothAddress",
+              "type": "address"
+            }
+          ],
+          "name": "DeactivateVotingBooth",
+          "type": "event",
+          "signature": "0xafbb4aa0f013cf60d928c38db1e3425d09ca11fdcd41516eee577abcef7cd2a4"
+        },
+        "0x890f4e89c76488160aacf9a41549a0e1bc74be23625284e4b75d98924189e219": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "festival",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "startTime",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "duration",
+              "type": "uint256"
+            }
+          ],
+          "name": "InitFestival",
+          "type": "event",
+          "signature": "0x890f4e89c76488160aacf9a41549a0e1bc74be23625284e4b75d98924189e219"
+        },
+        "0x6dfe03c1898d396215b872cb8c05ec6cd10c6a08e4c9d4cf2758946645900cd7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "festival",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "questionAddress",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "questionType",
+              "type": "uint8"
+            },
+            {
+              "indexed": false,
+              "internalType": "bytes32",
+              "name": "question",
+              "type": "bytes32"
+            }
+          ],
+          "name": "InitQuestion",
+          "type": "event",
+          "signature": "0x6dfe03c1898d396215b872cb8c05ec6cd10c6a08e4c9d4cf2758946645900cd7"
+        },
+        "0xb19d4fd999959d9d0075148221b684d4ebf7e97d11e7ea9af2af2026783489f7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "festival",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "boothAddress",
+              "type": "address"
+            }
+          ],
+          "name": "InitVotingBooth",
+          "type": "event",
+          "signature": "0xb19d4fd999959d9d0075148221b684d4ebf7e97d11e7ea9af2af2026783489f7"
+        },
+        "0xf8d49fc529812e9a7c5c50e69c20f0dccc0db8fa95c98bc58cc9a4f1c1299eaf": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "RemovedOwner",
+          "type": "event",
+          "signature": "0xf8d49fc529812e9a7c5c50e69c20f0dccc0db8fa95c98bc58cc9a4f1c1299eaf"
+        }
+      },
+      "links": {},
+      "address": "0xCfEB869F69431e42cdB54A4F4f105C19C080A601",
+      "transactionHash": "0x52f7cde502f4900c5889dd601c5c372ebeb675c096cf989fc70ca71bbe66422b"
+    }
+  },
   "schemaVersion": "3.0.20",
-  "updatedAt": "2020-06-09T17:50:50.726Z",
+  "updatedAt": "2020-06-10T08:59:42.533Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },

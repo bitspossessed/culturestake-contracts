@@ -252,6 +252,8 @@ contract('Culturestake', ([_, owner, attacker]) => {
     });
 
     it('isValidVotingNonce should return true for new nonce', async () => {
+      await culturestake.initVotingBooth(festival, booth.address, { from: owner });
+      (await culturestake.isValidVotingNonce(12)).should.be.equal(true);
     });
 
     it('isValidVotingNonce should return false for used nonce', async () => {
