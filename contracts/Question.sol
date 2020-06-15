@@ -15,7 +15,8 @@ contract Question {
   mapping (address => bool) public hasVoted;
 
   struct Answer {
-    bool active;
+    bool inited;
+    bool deactivated;
     bytes32 answer;
     uint256 votePower;
     uint256 voteTokens;
@@ -48,19 +49,19 @@ contract Question {
   }
 
   function initAnswer(bytes32 _answer) public authorized {
-    answers[_answer].active = true;
+    answers[_answer].inited = true;
     answers[_answer].answer = _answer;
     emit InitAnswer(_answer);
   }
 
   function deactivateAnswer(bytes32 _answer) public authorized {
-    answers[_answer].active = false;
+    answers[_answer].deactivated = true;
      emit DeactivateAnswer(_answer);
   }
 
   function getAnswer(bytes32 _answer) public returns (bool, uint256, uint256, uint256) {
     return (
-      answers[_answer].active,
+      answers[_answer].inited,
       answers[_answer].votePower,
       answers[_answer].voteTokens,
       answers[_answer].votes
@@ -85,13 +86,13 @@ contract Question {
     require(!hasVoted[msg.sender]);
     require(_answers.length == _voteTokens.length);
     require(festival == _festival);
-    require(CulturestakeI(admin).isValidFestival(_festival));
-    require(CulturestakeI(admin).validateVotingBooth(_festival, _answers, _nonce, sigV, sigR, sigS));
+    require(CulturestakeI(admin).isActiveFestival(_festival));
+    require(CulturestakeI(admin).checkBoothSignatureAndBurnNonce(_festival, _answers, _nonce, sigV, sigR, sigS));
     //require no duplicates in _answers array
     //require not more than _maxVoteTokens
     hasVoted[msg.sender] = true;
     for (uint i = 0; i < _answers.length; i++) {
-      require(answers[_answers[i]].active);
+      require(answers[_answers[i]].inited);
       answers[_answers[i]].votes = answers[_answers[i]].votes.add(1);
       answers[_answers[i]].voteTokens = answers[_answers[i]].voteTokens.add(_voteTokens[i]);
       answers[_answers[i]].votePower = answers[_answers[i]].votePower.add(sqrt(_voteTokens[i]));
