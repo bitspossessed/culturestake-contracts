@@ -48,7 +48,7 @@ contract Culturestake is Admin {
     // case festival hasn't started
     if (festivals[_festival].startTime > block.timestamp) return false;
     // case festival has ended
-    if (festivals[_festival].endTime > block.timestamp) return false;
+    if (festivals[_festival].endTime < block.timestamp) return false;
     return true;
   }
 
