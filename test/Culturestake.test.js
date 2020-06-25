@@ -65,6 +65,10 @@ contract('Culturestake', ([_, owner, attacker]) => {
       await culturestake.initFestival(festival, startTime, endTime, { from: owner });
     });
 
+    it('cannot re-init festival', async () => {
+      await assertRevert(culturestake.initFestival(festival, startTime, endTime, { from: owner }));
+    });
+
     it('owner can deactivate festival', async () => {
       await culturestake.deactivateFestival(festival, { from: owner });
       ((await culturestake.getFestival(festival))[1]).should.be.equal(true);
@@ -87,6 +91,10 @@ contract('Culturestake', ([_, owner, attacker]) => {
       (await culturestake.isActiveFestival(festival)).should.be.equal(true);
     });
 
+    it('isActiveFestival should return false for uninited festivals', async () => {
+      (await culturestake.isActiveFestival(web3.utils.sha3('wrong festival'))).should.be.equal(false);
+    });
+
     it('isActiveFestival should return false for deactivated festivals', async () => {
       await culturestake.deactivateFestival(festival, { from: owner });
       (await culturestake.isActiveFestival(festival)).should.be.equal(false);
@@ -105,6 +113,11 @@ contract('Culturestake', ([_, owner, attacker]) => {
     it('owner can create votingbooth', async () => {
       await culturestake.initVotingBooth(festival, booth.address, { from: owner });
       ((await culturestake.getVotingBooth(booth.address))[0]).should.be.equal(true);
+    });
+
+    it('cannot reinit votingbooth', async () => {
+      await culturestake.initVotingBooth(festival, booth.address, { from: owner });
+      await assertRevert(culturestake.initVotingBooth(festival, booth.address, { from: owner }));
     });
 
     it('should emit InitVotingBooth', async () => {
@@ -164,6 +177,21 @@ contract('Culturestake', ([_, owner, attacker]) => {
       )).should.be.equal(booth.address);
     });
 
+    it('checkBoothSignature should return the zero address for uninited booth', async () => {
+      const answer = web3.utils.sha3('an answer');
+      const nonce = 12;
+      let encoded = abi.rawEncode(['bytes32[]', 'uint256'], [[answer], nonce]);
+      encoded = `0x${encoded.toString('hex')}`;
+      const hash = solsha3(encoded);
+      const sig = util.ecsign(
+        Buffer.from(util.stripHexPrefix(hash), 'hex'),
+        Buffer.from(util.stripHexPrefix(booth.privateKey), 'hex'),
+      );
+      (await culturestake.checkBoothSignature(
+        festival, [answer], nonce, sig.v, sig.r, sig.s,
+      )).should.be.equal(ZERO_ADDRESS);
+    });
+
     it('checkBoothSignature should return the zero address for deactivated voting booth', async () => {
       await culturestake.initVotingBooth(festival, booth.address, { from: owner });
       await culturestake.deactivateVotingBooth(booth.address, { from: owner });
@@ -180,7 +208,6 @@ contract('Culturestake', ([_, owner, attacker]) => {
         festival, [answer], nonce, sig.v, sig.r, sig.s,
       )).should.be.equal(ZERO_ADDRESS);
     });
-
 
     it('checkBoothSignature should return the zero address for wrong festival', async () => {
       await culturestake.initVotingBooth(festival, booth.address, { from: owner });
@@ -259,6 +286,20 @@ contract('Culturestake', ([_, owner, attacker]) => {
     });
 
     it('isValidVotingNonce should return false for used nonce', async () => {
+      await culturestake.initVotingBooth(festival, booth.address, { from: owner });
+      const answer = web3.utils.sha3('an answer');
+      const nonce = 12;
+      let encoded = abi.rawEncode(['bytes32[]', 'uint256'], [[answer], nonce]);
+      encoded = `0x${encoded.toString('hex')}`;
+      const hash = solsha3(encoded);
+      const sig = util.ecsign(
+        Buffer.from(util.stripHexPrefix(hash), 'hex'),
+        Buffer.from(util.stripHexPrefix(booth.privateKey), 'hex'),
+      );
+      await culturestake.checkBoothSignatureAndBurnNonce(
+        festival, [answer], nonce, sig.v, sig.r, sig.s,
+      );
+      (await culturestake.isValidVotingNonce(booth.address, 12)).should.be.equal(false);
     });
   });
 });

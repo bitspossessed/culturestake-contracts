@@ -43,6 +43,8 @@ contract Culturestake is Admin {
   constructor(address[] memory _owners) public Admin(_owners) {}
 
   function isActiveFestival(bytes32 _festival) public view returns (bool) {
+    // case festival has not been inited
+    if (!festivals[_festival].inited) return false;
     // case festival has been manually deactivated
     if (festivals[_festival].deactivated) return false;
     // case festival hasn't started
@@ -107,6 +109,7 @@ contract Culturestake is Admin {
     address _booth
   ) public authorized {
       require(festivals[_festival].inited);
+      require(!votingBooths[_booth].inited);
       votingBooths[_booth].inited = true;
       votingBooths[_booth].festival = _festival;
       emit InitVotingBooth(_festival, _booth);
@@ -130,6 +133,7 @@ contract Culturestake is Admin {
     uint256 _startTime,
     uint256 _endTime
   ) public authorized {
+    require(!festivals[_festival].inited);
     festivals[_festival].inited = true;
     festivals[_festival].startTime = _startTime;
     festivals[_festival].endTime = _endTime;
