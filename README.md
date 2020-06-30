@@ -8,7 +8,7 @@ CultureStake is a [Furtherfield](https://www.furtherfield.org/)/[DECAL](http://w
 
 ## Development
 
-Requires [node version 10](https://nodejs.org/en/download/)
+Requires [node version 12](https://nodejs.org/en/download/)
 
 Clone down this repo and `npm install`
 
@@ -20,7 +20,7 @@ With ganache running (`npm run ganache`), in a new console window, `node_modules
 
 ## Testing
 
-Requires [node version 10](https://nodejs.org/en/download/)
+Requires [node version 12](https://nodejs.org/en/download/)
 `npm test` will re-build the contracts / tests and run all of the tests in the [test](test) directory.
 
 Tests are executed with the help of [Truffle](https://truffleframework.com/docs/truffle/testing/writing-tests-in-javascript) and written in javascript using [Mocha](https://mochajs.org/) with the [Chai assertion library](https://www.chaijs.com/). 
