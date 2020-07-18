@@ -19,6 +19,7 @@ contract('Question', ([_, owner, attacker]) => {
   const festival = web3.utils.sha3('my festival');
   const booth = web3.eth.accounts.create();
   const duration = 1000000;
+  const questionId = web3.utils.sha3('a question');
 
   beforeEach(async () => {
     startTime = timestamp();
@@ -29,7 +30,7 @@ contract('Question', ([_, owner, attacker]) => {
   });
 
   it('owner can create question', async () => {
-    await culturestake.initQuestion(maxVoteTokens, festival, { from: owner });
+    await culturestake.initQuestion(questionId, maxVoteTokens, festival, { from: owner });
     const logs = await culturestake.getPastEvents('InitQuestion', { fromBlock: 0, toBlock: 'latest' });
     const event = expectEvent.inLogs(logs, 'InitQuestion');
     return event.args.festival.should.be.equal(festival);

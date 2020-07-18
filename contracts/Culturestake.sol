@@ -9,8 +9,9 @@ contract Culturestake is Admin {
   using SafeMath for uint256;
 
   mapping (bytes32 => Festival) festivals;
+  mapping (bytes32 => QuestionStruct) questions;
   mapping (address => VotingBooth) votingBooths;
-  mapping (address => bool) public questions;
+  mapping (address => bool) public questionsByAddress;
 
   struct VotingBooth {
     bool inited;
@@ -24,19 +25,26 @@ contract Culturestake is Admin {
     bool deactivated;
     uint256 startTime;
     uint256 endTime;
-    mapping (address => bool) questions;
   }
 
-  event InitQuestion(bytes32 indexed festival, address indexed questionAddress);
+  struct QuestionStruct {
+    bool inited;
+    bool deactivated;
+    address contractAddress;
+    bytes32 festival;
+    uint256 maxVoteTokens;
+  }
+
+  event InitQuestion(bytes32 indexed question, bytes32 indexed festival, address indexed questionAddress);
   event InitFestival(bytes32 indexed festival, uint256 startTime, uint256 endTime);
   event InitVotingBooth(bytes32 indexed festival, address indexed boothAddress);
 
-  event DeactivateQuestion(address indexed questionAddress);
+  event DeactivateQuestion(bytes32 indexed question);
   event DeactivateFestival(bytes32 indexed festival);
   event DeactivateVotingBooth(address indexed boothAddress);
 
   modifier onlyQuestions() {
-      require(questions[msg.sender], "Method can only be called by questions");
+      require(questionsByAddress[msg.sender], "Method can only be called by questions");
       _;
   }
 
@@ -154,18 +162,38 @@ contract Culturestake is Admin {
     );
   }
 
-  function deactivateQuestion(address _question) public authorized {
-    questions[_question] = false;
+  function deactivateQuestion(bytes32 _question) public authorized {
+    questions[_question].deactivated = true;
+    questionsByAddress[questions[_question].contractAddress] = false;
     emit DeactivateQuestion(_question);
   }
 
   function initQuestion(
+    bytes32 _question,
     uint256 _maxVoteTokens,
     bytes32 _festival
   ) public authorized {
     require(festivals[_festival].inited);
+    require(!questions[_question].inited);
+
     Question questionContract = new Question(_maxVoteTokens, _festival);
-    questions[address(questionContract)] = true;
-    emit InitQuestion(_festival, address(questionContract));
+    questionsByAddress[address(questionContract)] = true;
+
+    questions[_question].inited = true;
+    questions[_question].festival = _festival;
+    questions[_question].contractAddress = address(questionContract);
+    questions[_question].maxVoteTokens = _maxVoteTokens;
+
+    emit InitQuestion(_question, _festival, address(questionContract));
+  }
+
+  function getQuestion(bytes32 _question) public view returns (bool, bool, address, bytes32, uint256) {
+    return (
+      questions[_question].inited,
+      questions[_question].deactivated,
+      questions[_question].contractAddress,
+      questions[_question].festival,
+      questions[_question].maxVoteTokens
+    );
   }
 }
