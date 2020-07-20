@@ -8,6 +8,7 @@ contract Question {
   using SafeMath for uint256;
 
   address public admin;
+  bytes32 public id;
   bytes32 public festival;
   uint256 public maxVoteTokens;
   uint256 public votes;
@@ -23,9 +24,10 @@ contract Question {
     uint256 votes;
   }
 
-  event InitAnswer(bytes32 indexed answer);
-  event DeactivateAnswer(bytes32 indexed answer);
+  event InitAnswer(bytes32 questionId, bytes32 indexed answer);
+  event DeactivateAnswer(bytes32 questionId, bytes32 indexed answer);
   event Vote(
+    bytes32 questionId,
     bytes32 indexed answer,
     uint256 voteTokens,
     uint256 votePower,
@@ -51,12 +53,12 @@ contract Question {
   function initAnswer(bytes32 _answer) public authorized {
     answers[_answer].inited = true;
     answers[_answer].answer = _answer;
-    emit InitAnswer(_answer);
+    emit InitAnswer(id, _answer);
   }
 
   function deactivateAnswer(bytes32 _answer) public authorized {
     answers[_answer].deactivated = true;
-     emit DeactivateAnswer(_answer);
+     emit DeactivateAnswer(id, _answer);
   }
 
   function getAnswer(bytes32 _answer) public returns (bool, uint256, uint256, uint256) {
@@ -114,7 +116,7 @@ contract Question {
       uint256 votePower = sqrt(_voteTokens[i]);
       answers[_answers[i]].votePower = answers[_answers[i]].votePower.add(votePower);
       CulturestakeI(admin).burnNonce(_booth, _nonce);
-      emit Vote(_answers[i], _voteTokens[i], votePower, answers[_answers[i]].votes, _booth, _nonce);
+      emit Vote(id, _answers[i], _voteTokens[i], votePower, answers[_answers[i]].votes, _booth, _nonce);
     }
     return true;
   }
