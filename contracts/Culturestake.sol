@@ -176,7 +176,7 @@ contract Culturestake is Admin {
     require(festivals[_festival].inited);
     require(!questions[_question].inited);
 
-    Question questionContract = new Question(_maxVoteTokens, _festival);
+    Question questionContract = new Question(_question, _maxVoteTokens, _festival);
     questionsByAddress[address(questionContract)] = true;
 
     questions[_question].inited = true;

@@ -40,12 +40,14 @@ contract Question {
       require(CulturestakeI(admin).isOwner(msg.sender), "Must be an admin" );
       _;
   }
-
+  
   constructor(
+    bytes32 _question,
     uint256 _maxVoteTokens,
     bytes32 _festival
   ) public {
     admin = msg.sender;
+    id = _question;
     maxVoteTokens = _maxVoteTokens;
     festival = _festival;
   }
