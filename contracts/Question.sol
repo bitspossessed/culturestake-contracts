@@ -63,9 +63,10 @@ contract Question {
      emit DeactivateAnswer(id, _answer);
   }
 
-  function getAnswer(bytes32 _answer) public returns (bool, uint256, uint256, uint256) {
+  function getAnswer(bytes32 _answer) public returns (bool, bool, uint256, uint256, uint256) {
     return (
       answers[_answer].inited,
+      answers[_answer].deactivated,
       answers[_answer].votePower,
       answers[_answer].voteTokens,
       answers[_answer].votes
