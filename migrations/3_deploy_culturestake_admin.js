@@ -6,5 +6,7 @@ module.exports = async function (deployer, network, accounts) {
   const address1 = process.env.GANACHE_ACCOUNT || accounts[1];
   const address2 = process.env.METAMASK || accounts[2];
   const questionMasterCopy = await Question.deployed();
-  deployer.deploy(Culturestake, [address0, address1, address2], questionMasterCopy.address);
+  await deployer.deploy(Culturestake, [address0, address1, address2], questionMasterCopy.address);
+  const culturestake = await Culturestake.deployed();
+  await culturestake.setVoteRelayer(process.env.VOTE_RELAYER);
 };

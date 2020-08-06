@@ -30,17 +30,17 @@
     "absolutePath": "/media/000/Documents/culturestake/culturestake-contracts/contracts/Proxy.sol",
     "exportedSymbols": {
       "IProxy": [
-        1201
+        1182
       ],
       "Proxy": [
-        1228
+        1209
       ]
     },
-    "id": 1229,
+    "id": 1210,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1195,
+        "id": 1176,
         "literals": [
           "solidity",
           ">=",
@@ -59,9 +59,9 @@
         "contractKind": "interface",
         "documentation": "@title IProxy - Helper interface to access masterCopy of the Proxy on-chain\n @author Richard Meissner - <richard@gnosis.io>",
         "fullyImplemented": false,
-        "id": 1201,
+        "id": 1182,
         "linearizedBaseContracts": [
-          1201
+          1182
         ],
         "name": "IProxy",
         "nodeType": "ContractDefinition",
@@ -69,28 +69,28 @@
           {
             "body": null,
             "documentation": null,
-            "id": 1200,
+            "id": 1181,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "masterCopy",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1196,
+              "id": 1177,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "206:2:3"
             },
             "returnParameters": {
-              "id": 1199,
+              "id": 1180,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1198,
+                  "id": 1179,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1200,
+                  "scope": 1181,
                   "src": "232:7:3",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -99,7 +99,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1197,
+                    "id": 1178,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "232:7:3",
@@ -115,14 +115,14 @@
               ],
               "src": "231:9:3"
             },
-            "scope": 1201,
+            "scope": 1182,
             "src": "187:54:3",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1229,
+        "scope": 1210,
         "src": "164:79:3"
       },
       {
@@ -131,19 +131,19 @@
         "contractKind": "contract",
         "documentation": "@title Proxy - Generic proxy contract allows to execute all transactions applying the code of a master contract.\n @author Stefan George - <stefan@gnosis.io>\n @author Richard Meissner - <richard@gnosis.io>",
         "fullyImplemented": true,
-        "id": 1228,
+        "id": 1209,
         "linearizedBaseContracts": [
-          1228
+          1209
         ],
         "name": "Proxy",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 1203,
+            "id": 1184,
             "name": "masterCopy",
             "nodeType": "VariableDeclaration",
-            "scope": 1228,
+            "scope": 1209,
             "src": "738:27:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -152,7 +152,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1202,
+              "id": 1183,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "738:7:3",
@@ -167,7 +167,7 @@
           },
           {
             "body": {
-              "id": 1221,
+              "id": 1202,
               "nodeType": "Block",
               "src": "944:125:3",
               "statements": [
@@ -181,18 +181,18 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 1213,
+                        "id": 1194,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "argumentTypes": null,
-                          "id": 1209,
+                          "id": 1190,
                           "name": "_masterCopy",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1205,
+                          "referencedDeclaration": 1186,
                           "src": "962:11:3",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -207,7 +207,7 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "30",
-                              "id": 1211,
+                              "id": 1192,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -230,7 +230,7 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 1210,
+                            "id": 1191,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -243,7 +243,7 @@
                             },
                             "typeName": "address"
                           },
-                          "id": 1212,
+                          "id": 1193,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -266,7 +266,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "496e76616c6964206d617374657220636f707920616464726573732070726f7669646564",
-                        "id": 1214,
+                        "id": 1195,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -293,21 +293,21 @@
                           "typeString": "literal_string \"Invalid master copy address provided\""
                         }
                       ],
-                      "id": 1208,
+                      "id": 1189,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        2013,
-                        2014
+                        1858,
+                        1859
                       ],
-                      "referencedDeclaration": 2014,
+                      "referencedDeclaration": 1859,
                       "src": "954:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 1215,
+                    "id": 1196,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -321,25 +321,25 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1216,
+                  "id": 1197,
                   "nodeType": "ExpressionStatement",
                   "src": "954:74:3"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1219,
+                    "id": 1200,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 1217,
+                      "id": 1198,
                       "name": "masterCopy",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1203,
+                      "referencedDeclaration": 1184,
                       "src": "1038:10:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -350,11 +350,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 1218,
+                      "id": 1199,
                       "name": "_masterCopy",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1205,
+                      "referencedDeclaration": 1186,
                       "src": "1051:11:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -367,29 +367,29 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 1220,
+                  "id": 1201,
                   "nodeType": "ExpressionStatement",
                   "src": "1038:24:3"
                 }
               ]
             },
             "documentation": "@dev Constructor function sets address of master copy contract.\n @param _masterCopy Master copy address.",
-            "id": 1222,
+            "id": 1203,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1206,
+              "id": 1187,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1205,
+                  "id": 1186,
                   "name": "_masterCopy",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1222,
+                  "scope": 1203,
                   "src": "904:19:3",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -398,7 +398,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1204,
+                    "id": 1185,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "904:7:3",
@@ -415,12 +415,12 @@
               "src": "903:21:3"
             },
             "returnParameters": {
-              "id": 1207,
+              "id": 1188,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "944:0:3"
             },
-            "scope": 1228,
+            "scope": 1209,
             "src": "892:177:3",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -428,13 +428,13 @@
           },
           {
             "body": {
-              "id": 1226,
+              "id": 1207,
               "nodeType": "Block",
               "src": "1219:758:3",
               "statements": [
                 {
                   "externalReferences": [],
-                  "id": 1225,
+                  "id": 1206,
                   "nodeType": "InlineAssembly",
                   "operations": "{\n    let masterCopy := and(sload(0), 0xffffffffffffffffffffffffffffffffffffffff)\n    if eq(calldataload(0), 0xa619486e00000000000000000000000000000000000000000000000000000000)\n    {\n        mstore(0, masterCopy)\n        return(0, 0x20)\n    }\n    calldatacopy(0, 0, calldatasize())\n    let success := delegatecall(gas(), masterCopy, 0, calldatasize(), 0, 0)\n    returndatacopy(0, 0, returndatasize())\n    if eq(success, 0) { revert(0, returndatasize()) }\n    return(0, returndatasize())\n}",
                   "src": "1293:678:3"
@@ -442,32 +442,32 @@
               ]
             },
             "documentation": "@dev Fallback function forwards all transactions and returns all received return data.",
-            "id": 1227,
+            "id": 1208,
             "implemented": true,
             "kind": "fallback",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1223,
+              "id": 1204,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1179:2:3"
             },
             "returnParameters": {
-              "id": 1224,
+              "id": 1205,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1219:0:3"
             },
-            "scope": 1228,
+            "scope": 1209,
             "src": "1170:807:3",
             "stateMutability": "payable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1229,
+        "scope": 1210,
         "src": "460:1519:3"
       }
     ],
@@ -477,17 +477,17 @@
     "absolutePath": "/media/000/Documents/culturestake/culturestake-contracts/contracts/Proxy.sol",
     "exportedSymbols": {
       "IProxy": [
-        1201
+        1182
       ],
       "Proxy": [
-        1228
+        1209
       ]
     },
-    "id": 1229,
+    "id": 1210,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1195,
+        "id": 1176,
         "literals": [
           "solidity",
           ">=",
@@ -506,9 +506,9 @@
         "contractKind": "interface",
         "documentation": "@title IProxy - Helper interface to access masterCopy of the Proxy on-chain\n @author Richard Meissner - <richard@gnosis.io>",
         "fullyImplemented": false,
-        "id": 1201,
+        "id": 1182,
         "linearizedBaseContracts": [
-          1201
+          1182
         ],
         "name": "IProxy",
         "nodeType": "ContractDefinition",
@@ -516,28 +516,28 @@
           {
             "body": null,
             "documentation": null,
-            "id": 1200,
+            "id": 1181,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "masterCopy",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1196,
+              "id": 1177,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "206:2:3"
             },
             "returnParameters": {
-              "id": 1199,
+              "id": 1180,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1198,
+                  "id": 1179,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1200,
+                  "scope": 1181,
                   "src": "232:7:3",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -546,7 +546,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1197,
+                    "id": 1178,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "232:7:3",
@@ -562,14 +562,14 @@
               ],
               "src": "231:9:3"
             },
-            "scope": 1201,
+            "scope": 1182,
             "src": "187:54:3",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1229,
+        "scope": 1210,
         "src": "164:79:3"
       },
       {
@@ -578,19 +578,19 @@
         "contractKind": "contract",
         "documentation": "@title Proxy - Generic proxy contract allows to execute all transactions applying the code of a master contract.\n @author Stefan George - <stefan@gnosis.io>\n @author Richard Meissner - <richard@gnosis.io>",
         "fullyImplemented": true,
-        "id": 1228,
+        "id": 1209,
         "linearizedBaseContracts": [
-          1228
+          1209
         ],
         "name": "Proxy",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 1203,
+            "id": 1184,
             "name": "masterCopy",
             "nodeType": "VariableDeclaration",
-            "scope": 1228,
+            "scope": 1209,
             "src": "738:27:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -599,7 +599,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1202,
+              "id": 1183,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "738:7:3",
@@ -614,7 +614,7 @@
           },
           {
             "body": {
-              "id": 1221,
+              "id": 1202,
               "nodeType": "Block",
               "src": "944:125:3",
               "statements": [
@@ -628,18 +628,18 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 1213,
+                        "id": 1194,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "argumentTypes": null,
-                          "id": 1209,
+                          "id": 1190,
                           "name": "_masterCopy",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1205,
+                          "referencedDeclaration": 1186,
                           "src": "962:11:3",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -654,7 +654,7 @@
                             {
                               "argumentTypes": null,
                               "hexValue": "30",
-                              "id": 1211,
+                              "id": 1192,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -677,7 +677,7 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 1210,
+                            "id": 1191,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -690,7 +690,7 @@
                             },
                             "typeName": "address"
                           },
-                          "id": 1212,
+                          "id": 1193,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -713,7 +713,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "496e76616c6964206d617374657220636f707920616464726573732070726f7669646564",
-                        "id": 1214,
+                        "id": 1195,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -740,21 +740,21 @@
                           "typeString": "literal_string \"Invalid master copy address provided\""
                         }
                       ],
-                      "id": 1208,
+                      "id": 1189,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        2013,
-                        2014
+                        1858,
+                        1859
                       ],
-                      "referencedDeclaration": 2014,
+                      "referencedDeclaration": 1859,
                       "src": "954:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 1215,
+                    "id": 1196,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -768,25 +768,25 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1216,
+                  "id": 1197,
                   "nodeType": "ExpressionStatement",
                   "src": "954:74:3"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1219,
+                    "id": 1200,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 1217,
+                      "id": 1198,
                       "name": "masterCopy",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1203,
+                      "referencedDeclaration": 1184,
                       "src": "1038:10:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -797,11 +797,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 1218,
+                      "id": 1199,
                       "name": "_masterCopy",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1205,
+                      "referencedDeclaration": 1186,
                       "src": "1051:11:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -814,29 +814,29 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 1220,
+                  "id": 1201,
                   "nodeType": "ExpressionStatement",
                   "src": "1038:24:3"
                 }
               ]
             },
             "documentation": "@dev Constructor function sets address of master copy contract.\n @param _masterCopy Master copy address.",
-            "id": 1222,
+            "id": 1203,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1206,
+              "id": 1187,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1205,
+                  "id": 1186,
                   "name": "_masterCopy",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1222,
+                  "scope": 1203,
                   "src": "904:19:3",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -845,7 +845,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1204,
+                    "id": 1185,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "904:7:3",
@@ -862,12 +862,12 @@
               "src": "903:21:3"
             },
             "returnParameters": {
-              "id": 1207,
+              "id": 1188,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "944:0:3"
             },
-            "scope": 1228,
+            "scope": 1209,
             "src": "892:177:3",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -875,13 +875,13 @@
           },
           {
             "body": {
-              "id": 1226,
+              "id": 1207,
               "nodeType": "Block",
               "src": "1219:758:3",
               "statements": [
                 {
                   "externalReferences": [],
-                  "id": 1225,
+                  "id": 1206,
                   "nodeType": "InlineAssembly",
                   "operations": "{\n    let masterCopy := and(sload(0), 0xffffffffffffffffffffffffffffffffffffffff)\n    if eq(calldataload(0), 0xa619486e00000000000000000000000000000000000000000000000000000000)\n    {\n        mstore(0, masterCopy)\n        return(0, 0x20)\n    }\n    calldatacopy(0, 0, calldatasize())\n    let success := delegatecall(gas(), masterCopy, 0, calldatasize(), 0, 0)\n    returndatacopy(0, 0, returndatasize())\n    if eq(success, 0) { revert(0, returndatasize()) }\n    return(0, returndatasize())\n}",
                   "src": "1293:678:3"
@@ -889,32 +889,32 @@
               ]
             },
             "documentation": "@dev Fallback function forwards all transactions and returns all received return data.",
-            "id": 1227,
+            "id": 1208,
             "implemented": true,
             "kind": "fallback",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1223,
+              "id": 1204,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1179:2:3"
             },
             "returnParameters": {
-              "id": 1224,
+              "id": 1205,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1219:0:3"
             },
-            "scope": 1228,
+            "scope": 1209,
             "src": "1170:807:3",
             "stateMutability": "payable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1229,
+        "scope": 1210,
         "src": "460:1519:3"
       }
     ],
@@ -926,7 +926,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.20",
-  "updatedAt": "2020-08-06T12:50:19.940Z",
+  "updatedAt": "2020-08-06T14:04:33.671Z",
   "devdoc": {
     "author": "Stefan George - <stefan@gnosis.io>Richard Meissner - <richard@gnosis.io>",
     "methods": {

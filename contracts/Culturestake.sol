@@ -14,6 +14,7 @@ contract Culturestake is Admin {
   mapping (address => VotingBooth) votingBooths;
   mapping (address => bool) public questionsByAddress;
   address public questionMasterCopy;
+  address public voteRelayer;
 
   struct VotingBooth {
     bool inited;
@@ -60,6 +61,14 @@ contract Culturestake is Admin {
     questionMasterCopy = _newQuestionMasterCopy;
   }
 
+  function setVoteRelayer(address _newVoteRelayer) public authorized {
+    voteRelayer = _newVoteRelayer;
+  }
+
+  function isVoteRelayer(address _sender) public view returns (bool) {
+    return _sender == voteRelayer;
+  }
+
   function isActiveFestival(bytes32 _festival) public view returns (bool) {
     // case festival has not been inited
     if (!festivals[_festival].inited) return false;
@@ -98,20 +107,6 @@ contract Culturestake is Admin {
     uint256 _nonce
   ) public view returns (bytes32) {
     return keccak256(abi.encode(_answers, _nonce));
-  }
-
-  function checkBoothSignatureAndBurnNonce(
-    bytes32 _festival,
-    bytes32[] memory _answers,
-    uint256 _nonce,
-    uint8 sigV,
-    bytes32 sigR,
-    bytes32 sigS
-  ) public returns (bool) {
-    address addressFromSig = checkBoothSignature(_festival, _answers, _nonce, sigV, sigR, sigS);
-    require(addressFromSig != address(0));
-    _burnNonce(addressFromSig, _nonce);
-    return true;
   }
 
   function _burnNonce(address _booth, uint256 _nonce) internal {
@@ -177,25 +172,6 @@ contract Culturestake is Admin {
     questionsByAddress[questions[_question].contractAddress] = false;
     emit DeactivateQuestion(_question);
   }
-
-  // function initQuestion(
-  //   bytes32 _question,
-  //   uint256 _maxVoteTokens,
-  //   bytes32 _festival
-  // ) public authorized {
-  //   require(festivals[_festival].inited);
-  //   require(!questions[_question].inited);
-
-  //   Question questionContract = new Question(_question, _maxVoteTokens, _festival);
-  //   questionsByAddress[address(questionContract)] = true;
-
-  //   questions[_question].inited = true;
-  //   questions[_question].festival = _festival;
-  //   questions[_question].contractAddress = address(questionContract);
-  //   questions[_question].maxVoteTokens = _maxVoteTokens;
-
-  //   emit InitQuestion(_question, _festival, address(questionContract));
-  // }
 
   function initQuestion(
     bytes32 _question,
