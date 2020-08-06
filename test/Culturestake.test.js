@@ -13,19 +13,24 @@ require('chai')
   .should();
 
 const Culturestake = artifacts.require('MockCulturestake');
+const Question = artifacts.require('Question');
 
 contract('Culturestake', ([_, owner, attacker]) => {
   let culturestake;
+  let questionMasterCopy;
   let startTime;
   let endTime;
-  const festival = web3.utils.sha3('my festival');
+  const question = web3.utils.sha3('question');
+  const festival = web3.utils.sha3('festival');
   const booth = web3.eth.accounts.create();
   const duration = 1000000;
 
   beforeEach(async () => {
     startTime = timestamp();
     endTime = startTime + duration;
-    culturestake = await Culturestake.new([owner], { from: owner });
+    questionMasterCopy = await Question.new({ from: owner });
+    await questionMasterCopy.setup(ZERO_ADDRESS, question, 0, festival);
+    culturestake = await Culturestake.new([owner], questionMasterCopy.address, { from: owner });
   });
 
   it('owner can create festival', async () => {

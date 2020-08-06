@@ -206,7 +206,7 @@ contract Culturestake is Admin {
     require(!questions[_question].inited);
 
     bytes memory data = abi.encodeWithSelector(
-      0x568acc90, address(this), _question, _maxVoteTokens, _festival
+      0x2fa97de7, address(this), _question, _maxVoteTokens, _festival
     );
 
     Proxy questionContract = createProxy(data);

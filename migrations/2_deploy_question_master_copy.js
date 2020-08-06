@@ -1,4 +1,3 @@
-const Culturestake = artifacts.require('Culturestake');
 const Question = artifacts.require('Question');
 const { ZERO_ADDRESS } = require('../test/helpers/constants');
 
