@@ -12,6 +12,7 @@ contract Question {
   bytes32 public festival;
   uint256 public maxVoteTokens;
   uint256 public votes;
+  bool public configured;
   mapping (bytes32 => Answer) answers;
   mapping (address => bool) public hasVoted;
 
@@ -40,16 +41,19 @@ contract Question {
       require(CulturestakeI(admin).isOwner(msg.sender), "Must be an admin" );
       _;
   }
-  
-  constructor(
+
+  function setup(
+    address _admin,
     bytes32 _question,
     uint256 _maxVoteTokens,
     bytes32 _festival
   ) public {
-    admin = msg.sender;
+    require(!configured);
+    admin = _admin;
     id = _question;
     maxVoteTokens = _maxVoteTokens;
     festival = _festival;
+    configured = true;
   }
 
   function initAnswer(bytes32 _answer) public authorized {

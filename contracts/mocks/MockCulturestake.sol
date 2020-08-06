@@ -2,8 +2,8 @@ pragma solidity ^0.5.0;
 import "../Culturestake.sol";
 
 contract MockCulturestake is Culturestake {
-    constructor(address[] memory _owners)
-    Culturestake(_owners)
+    constructor(address[] memory _owners, address _questionMasterCopy)
+    Culturestake(_owners, _questionMasterCopy)
     public {
 
     }
