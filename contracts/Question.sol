@@ -5,6 +5,8 @@ import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import './interfaces/CulturestakeI.sol';
 
 contract Question {
+  address private masterCopy;
+
   using SafeMath for uint256;
 
   address public admin;
@@ -67,13 +69,15 @@ contract Question {
   }
 
   function initAnswer(bytes32 _answer) public authorized {
-    require(thisQuestionIsActive());
+    //require(configured, "Question must be configured");
+    //require(thisQuestionIsActive(), "Question must be active");
     answers[_answer].inited = true;
     answers[_answer].answer = _answer;
     emit InitAnswer(id, _answer);
   }
 
   function deactivateAnswer(bytes32 _answer) public authorized {
+    require(configured);
     answers[_answer].deactivated = true;
      emit DeactivateAnswer(id, _answer);
   }
@@ -94,6 +98,7 @@ contract Question {
     address _booth,
     uint256 _nonce
   ) public onlyVoteRelayer returns (bool) {
+    require(configured);
     // this method assumes all checks have been done by an admin
     for (uint i = 0; i < _answers.length; i++) {
       answers[_answers[i]].votes = answers[_answers[i]].votes.add(1);

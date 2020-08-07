@@ -33,6 +33,32 @@ contract('Culturestake', ([_, owner, attacker]) => {
     culturestake = await Culturestake.new([owner], questionMasterCopy.address, { from: owner });
   });
 
+  it('owner can change questionMasterCopy', async () => {
+    questionMasterCopy = await Question.new({ from: owner });
+    await questionMasterCopy.setup(ZERO_ADDRESS, question, 0, festival);
+    await culturestake.setQuestionMasterCopy(questionMasterCopy.address, { from: owner });
+    (await culturestake.questionMasterCopy()).should.be.equal(questionMasterCopy.address);
+  });
+
+  it('only owner can change questionMasterCopy', async () => {
+    await assertRevert(
+      culturestake.setQuestionMasterCopy(questionMasterCopy.address, { from: attacker }),
+    );
+  });
+
+  it('owner can set voteRelayer', async () => {
+    const voteRelayer = web3.eth.accounts.create();
+    await culturestake.setVoteRelayer(voteRelayer.address, { from: owner });
+    (await culturestake.voteRelayer()).should.be.equal(voteRelayer.address);
+  });
+
+  it('only owner can set voteRelayer', async () => {
+    const voteRelayer = web3.eth.accounts.create();
+    await assertRevert(
+      culturestake.setVoteRelayer(voteRelayer.address, { from: attacker }),
+    );
+  });
+
   it('owner can create festival', async () => {
     await culturestake.initFestival(festival, timestamp(), endTime, { from: owner });
     ((await culturestake.getFestival(festival))[0]).should.be.equal(true);
