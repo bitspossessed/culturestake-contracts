@@ -73,11 +73,11 @@ contract('Question', ([_, owner, attacker]) => {
         nonce,
         from: voteRelayer.address,
       }, voteRelayer.privateKey);
-      await web3.eth.sendTransaction({ from: owner, to: voteRelayer.address, value: '2496800000000000' });
-
-      const checkRelayer = await culturestake.voteRelayer()
-      // console.log(checkRelayer);
-      // console.log(voteRelayer.address)
+      await web3.eth.sendTransaction({
+        from: owner,
+        to: voteRelayer.address,
+        value: bn(gas).mul(bn('20000000000'))
+      });
 
       await web3.eth.sendSignedTransaction(signed.rawTransaction);
 
