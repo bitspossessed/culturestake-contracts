@@ -4,6 +4,7 @@ import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 import './Admin.sol';
 import './Question.sol';
+import "./Proxy.sol";
 
 contract Culturestake is Admin {
   using SafeMath for uint256;
@@ -12,6 +13,8 @@ contract Culturestake is Admin {
   mapping (bytes32 => QuestionStruct) questions;
   mapping (address => VotingBooth) votingBooths;
   mapping (address => bool) public questionsByAddress;
+  address public questionMasterCopy;
+  address public voteRelayer;
 
   struct VotingBooth {
     bool inited;
@@ -43,12 +46,28 @@ contract Culturestake is Admin {
   event DeactivateFestival(bytes32 indexed festival);
   event DeactivateVotingBooth(address indexed boothAddress);
 
+  event ProxyCreation(Proxy proxy);
+
   modifier onlyQuestions() {
       require(questionsByAddress[msg.sender], "Method can only be called by questions");
       _;
   }
 
-  constructor(address[] memory _owners) public Admin(_owners) {}
+  constructor(address[] memory _owners, address _questionMasterCopy) public Admin(_owners) {
+    questionMasterCopy = _questionMasterCopy;
+  }
+
+  function setQuestionMasterCopy(address _newQuestionMasterCopy) public authorized {
+    questionMasterCopy = _newQuestionMasterCopy;
+  }
+
+  function setVoteRelayer(address _newVoteRelayer) public authorized {
+    voteRelayer = _newVoteRelayer;
+  }
+
+  function isVoteRelayer(address _sender) public view returns (bool) {
+    return _sender == voteRelayer;
+  }
 
   function isActiveFestival(bytes32 _festival) public view returns (bool) {
     // case festival has not been inited
@@ -88,20 +107,6 @@ contract Culturestake is Admin {
     uint256 _nonce
   ) public view returns (bytes32) {
     return keccak256(abi.encode(_answers, _nonce));
-  }
-
-  function checkBoothSignatureAndBurnNonce(
-    bytes32 _festival,
-    bytes32[] memory _answers,
-    uint256 _nonce,
-    uint8 sigV,
-    bytes32 sigR,
-    bytes32 sigS
-  ) public returns (bool) {
-    address addressFromSig = checkBoothSignature(_festival, _answers, _nonce, sigV, sigR, sigS);
-    require(addressFromSig != address(0));
-    _burnNonce(addressFromSig, _nonce);
-    return true;
   }
 
   function _burnNonce(address _booth, uint256 _nonce) internal {
@@ -176,7 +181,11 @@ contract Culturestake is Admin {
     require(festivals[_festival].inited);
     require(!questions[_question].inited);
 
-    Question questionContract = new Question(_question, _maxVoteTokens, _festival);
+    bytes memory data = abi.encodeWithSelector(
+      0x2fa97de7, address(this), _question, _maxVoteTokens, _festival
+    );
+
+    Proxy questionContract = createProxy(data);
     questionsByAddress[address(questionContract)] = true;
 
     questions[_question].inited = true;
@@ -185,6 +194,21 @@ contract Culturestake is Admin {
     questions[_question].maxVoteTokens = _maxVoteTokens;
 
     emit InitQuestion(_question, _festival, address(questionContract));
+  }
+
+  /// @dev Allows to create new proxy contact and execute a message call to the new proxy within one transaction.
+  /// @param data Payload for message call sent to new proxy contract.
+  function createProxy(bytes memory data)
+      internal
+      returns (Proxy proxy)
+  {
+      proxy = new Proxy(questionMasterCopy);
+      if (data.length > 0)
+          // solium-disable-next-line security/no-inline-assembly
+          assembly {
+              if eq(call(gas, proxy, 0, add(data, 0x20), mload(data), 0, 0), 0) { revert(0, 0) }
+          }
+      emit ProxyCreation(proxy);
   }
 
   function getQuestion(bytes32 _question) public view returns (bool, bool, address, bytes32, uint256) {

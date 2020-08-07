@@ -13,19 +13,50 @@ require('chai')
   .should();
 
 const Culturestake = artifacts.require('MockCulturestake');
+const Question = artifacts.require('Question');
 
 contract('Culturestake', ([_, owner, attacker]) => {
   let culturestake;
+  let questionMasterCopy;
   let startTime;
   let endTime;
-  const festival = web3.utils.sha3('my festival');
+  const question = web3.utils.sha3('question');
+  const festival = web3.utils.sha3('festival');
   const booth = web3.eth.accounts.create();
   const duration = 1000000;
 
   beforeEach(async () => {
     startTime = timestamp();
     endTime = startTime + duration;
-    culturestake = await Culturestake.new([owner], { from: owner });
+    questionMasterCopy = await Question.new({ from: owner });
+    await questionMasterCopy.setup(ZERO_ADDRESS, question, 0, festival);
+    culturestake = await Culturestake.new([owner], questionMasterCopy.address, { from: owner });
+  });
+
+  it('owner can change questionMasterCopy', async () => {
+    questionMasterCopy = await Question.new({ from: owner });
+    await questionMasterCopy.setup(ZERO_ADDRESS, question, 0, festival);
+    await culturestake.setQuestionMasterCopy(questionMasterCopy.address, { from: owner });
+    (await culturestake.questionMasterCopy()).should.be.equal(questionMasterCopy.address);
+  });
+
+  it('only owner can change questionMasterCopy', async () => {
+    await assertRevert(
+      culturestake.setQuestionMasterCopy(questionMasterCopy.address, { from: attacker }),
+    );
+  });
+
+  it('owner can set voteRelayer', async () => {
+    const voteRelayer = web3.eth.accounts.create();
+    await culturestake.setVoteRelayer(voteRelayer.address, { from: owner });
+    (await culturestake.voteRelayer()).should.be.equal(voteRelayer.address);
+  });
+
+  it('only owner can set voteRelayer', async () => {
+    const voteRelayer = web3.eth.accounts.create();
+    await assertRevert(
+      culturestake.setVoteRelayer(voteRelayer.address, { from: attacker }),
+    );
   });
 
   it('owner can create festival', async () => {
