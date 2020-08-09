@@ -76,7 +76,7 @@ contract('Question', ([_, owner, attacker]) => {
       await web3.eth.sendTransaction({
         from: owner,
         to: voteRelayer.address,
-        value: bn(gas).mul(bn('20000000000'))
+        value: bn(gas).mul(bn('20000000000')),
       });
 
       await web3.eth.sendSignedTransaction(signed.rawTransaction);
