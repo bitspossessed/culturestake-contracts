@@ -56,7 +56,7 @@ contract('Question', ([_, owner, attacker]) => {
       const to = question.address;
       await question.initAnswer(answer, { from: owner });
       const data = question.contract.methods.recordUnsignedVote(
-        [answer], [10], booth.address, refreshNonce(),
+        [answer], [10], [3], booth.address, refreshNonce(),
       ).encodeABI();
 
       const gas = await web3.eth.estimateGas({
