@@ -11,6 +11,12 @@ require('chai')
 const Culturestake = artifacts.require('MockCulturestake');
 const Question = artifacts.require('Question');
 
+const getQuestion = async (culturestake) => {
+  const logs = await culturestake.getPastEvents('InitQuestion', { fromBlock: 0, toBlock: 'latest' });
+  const event = expectEvent.inLogs(logs, 'InitQuestion');
+  return Question.at(event.args.questionAddress);
+};
+
 contract('Question', ([_, owner, attacker]) => {
   let culturestake;
   let startTime;
@@ -41,12 +47,23 @@ contract('Question', ([_, owner, attacker]) => {
     return event.args.festival.should.be.equal(festival);
   });
 
+
+  it('question is configured when deployed', async () => {
+    await culturestake.initQuestion(questionId, maxVoteTokens, festival, { from: owner });
+    question = await getQuestion(culturestake);
+    (await question.configured()).should.be.equal(true);
+  });
+
+  it('question has the correct id when deployed', async () => {
+    await culturestake.initQuestion(questionId, maxVoteTokens, festival, { from: owner });
+    question = await getQuestion(culturestake);
+    (await question.id()).should.be.equal(questionId);
+  });
+
   describe('vote tests', () => {
     beforeEach(async () => {
       await culturestake.initQuestion(questionId, maxVoteTokens, festival, { from: owner });
-      const logs = await culturestake.getPastEvents('InitQuestion', { fromBlock: 0, toBlock: 'latest' });
-      const event = expectEvent.inLogs(logs, 'InitQuestion');
-      question = await Question.at(event.args.questionAddress);
+      question = await getQuestion(culturestake);
       voteRelayer = web3.eth.accounts.create();
       await culturestake.setVoteRelayer(voteRelayer.address, { from: owner });
     });
@@ -84,6 +101,15 @@ contract('Question', ([_, owner, attacker]) => {
       const logs = await question.getPastEvents('Vote', { fromBlock: 0, toBlock: 'latest' });
       const event = expectEvent.inLogs(logs, 'Vote');
       return event.args.questionId.should.be.equal(questionId);
+    });
+
+    it('attacker cant send a vote', async () => {
+      const answer = web3.utils.sha3('answer');
+      await question.initAnswer(answer, { from: owner });
+      await assertRevert(question.recordUnsignedVote(
+        [answer], [10], [3], booth.address, refreshNonce(),
+        { from: attacker },
+      ));
     });
   });
 });

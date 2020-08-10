@@ -10360,7 +10360,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.20",
-  "updatedAt": "2020-08-09T15:16:59.213Z",
+  "updatedAt": "2020-08-10T13:28:05.810Z",
   "devdoc": {
     "methods": {
       "deactivateAnswer(bytes32)": {
