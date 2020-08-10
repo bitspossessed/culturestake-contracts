@@ -297,10 +297,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1908,
-                        1909
+                        1921,
+                        1922
                       ],
-                      "referencedDeclaration": 1909,
+                      "referencedDeclaration": 1922,
                       "src": "954:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -744,10 +744,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1908,
-                        1909
+                        1921,
+                        1922
                       ],
-                      "referencedDeclaration": 1909,
+                      "referencedDeclaration": 1922,
                       "src": "954:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -926,7 +926,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.20",
-  "updatedAt": "2020-08-07T18:35:07.524Z",
+  "updatedAt": "2020-08-10T13:28:05.809Z",
   "devdoc": {
     "author": "Stefan George - <stefan@gnosis.io>Richard Meissner - <richard@gnosis.io>",
     "methods": {
