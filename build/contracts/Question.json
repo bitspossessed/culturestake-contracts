@@ -10358,9 +10358,108 @@
     "name": "solc",
     "version": "0.5.12+commit.7709ece9.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "42": {
+      "events": {
+        "0x3a5fda4e8bbfa44bf1616235c65372363be88e912262f2900520182eb0a0e05d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "bytes32",
+              "name": "questionId",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "answer",
+              "type": "bytes32"
+            }
+          ],
+          "name": "DeactivateAnswer",
+          "type": "event",
+          "signature": "0x3a5fda4e8bbfa44bf1616235c65372363be88e912262f2900520182eb0a0e05d"
+        },
+        "0xd55b19b94d1b924e77e42cd64f674efe8b07382da67342605f7d1499da953c03": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "bytes32",
+              "name": "questionId",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "answer",
+              "type": "bytes32"
+            }
+          ],
+          "name": "InitAnswer",
+          "type": "event",
+          "signature": "0xd55b19b94d1b924e77e42cd64f674efe8b07382da67342605f7d1499da953c03"
+        },
+        "0xc6880da0aa65b366f9232d1fdefa4c86d6ee1a705f9a44985f779f548b08aa1e": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "bytes32",
+              "name": "questionId",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "answer",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "voteTokens",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "votePower",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "votes",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "booth",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "nonce",
+              "type": "uint256"
+            }
+          ],
+          "name": "Vote",
+          "type": "event",
+          "signature": "0xc6880da0aa65b366f9232d1fdefa4c86d6ee1a705f9a44985f779f548b08aa1e"
+        }
+      },
+      "links": {},
+      "address": "0x26EB485595bBa6ce8966192a5DAf863BA9387720",
+      "transactionHash": "0xeb2853a6762ba876bf4a463e463581a2d182c51ca98535570a94122241bd0f59"
+    }
+  },
   "schemaVersion": "3.0.20",
-  "updatedAt": "2020-08-10T13:28:05.810Z",
+  "updatedAt": "2020-08-11T20:35:17.127Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "deactivateAnswer(bytes32)": {

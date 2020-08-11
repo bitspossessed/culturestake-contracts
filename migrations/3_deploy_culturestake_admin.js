@@ -8,5 +8,5 @@ module.exports = async function (deployer, network, accounts) {
   const questionMasterCopy = await Question.deployed();
   await deployer.deploy(Culturestake, [address0, address1, address2], questionMasterCopy.address);
   const culturestake = await Culturestake.deployed();
-  await culturestake.setVoteRelayer(process.env.VOTE_RELAYER);
+  await culturestake.setVoteRelayer(process.env.VOTE_RELAYER, { from: address0 });
 };
