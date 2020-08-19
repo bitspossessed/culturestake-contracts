@@ -92,7 +92,7 @@ contract Question {
   /// @dev Destructive method, removes an answer from voting
   /// @param _answer The answer chain id
   function deactivateAnswer(bytes32 _answer) public authorized {
-    require(configured);
+    require(configured, "Question must be configured");
     answers[_answer].deactivated = true;
     emit DeactivateAnswer(id, _answer);
   }
@@ -127,7 +127,7 @@ contract Question {
     address _booth,
     uint256 _nonce
   ) public onlyVoteRelayer returns (bool) {
-    require(configured);
+    require(configured, "Question must be configured");
     // this method assumes most checks have been done by an admin
     for (uint i = 0; i < _answers.length; i++) {
       answers[_answers[i]].votes = answers[_answers[i]].votes.add(1);
