@@ -161,7 +161,7 @@ contract Culturestake is Admin {
       // booth are only for one festival
       require(festivals[_festival].inited, 'Festival must be inited');
       // booths are one-time use
-      require(!votingBooths[_booth].inited, 'Voting boots can only be inited once');
+      require(!votingBooths[_booth].inited, 'Voting booths can only be inited once');
       votingBooths[_booth].inited = true;
       votingBooths[_booth].festival = _festival;
       emit InitVotingBooth(_festival, _booth);
@@ -200,8 +200,10 @@ contract Culturestake is Admin {
     uint256 _startTime,
     uint256 _endTime
   ) public authorized {
-    // this method can only be called once per chain id
+    // this method can only be called once per festival chain id
     require(!festivals[_festival].inited, 'Festival must be inited');
+    require(_startTime >= block.timestamp);
+    require(_endTime > _startTime);
     festivals[_festival].inited = true;
     festivals[_festival].startTime = _startTime;
     festivals[_festival].endTime = _endTime;

@@ -17,6 +17,8 @@ const getQuestion = async (culturestake) => {
   return Question.at(event.args.questionAddress);
 };
 
+const validStartTime = () => timestamp() + 10;
+
 contract('Question', ([_, owner, attacker]) => {
   let culturestake;
   let startTime;
@@ -31,7 +33,7 @@ contract('Question', ([_, owner, attacker]) => {
   const questionId = web3.utils.sha3('a question');
 
   beforeEach(async () => {
-    startTime = timestamp();
+    startTime = validStartTime();
     endTime = startTime + duration;
     questionMasterCopy = await Question.new({ from: owner });
     await questionMasterCopy.setup(ZERO_ADDRESS, questionId, 0, festival);

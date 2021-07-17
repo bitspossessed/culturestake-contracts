@@ -15,6 +15,8 @@ require('chai')
 const Culturestake = artifacts.require('MockCulturestake');
 const Question = artifacts.require('Question');
 
+const validStartTime = () => timestamp() + 10;
+
 contract('Culturestake', ([_, owner, attacker]) => {
   let culturestake;
   let questionMasterCopy;
@@ -26,7 +28,7 @@ contract('Culturestake', ([_, owner, attacker]) => {
   const duration = 1000000;
 
   beforeEach(async () => {
-    startTime = timestamp();
+    startTime = validStartTime();
     endTime = startTime + duration;
     questionMasterCopy = await Question.new({ from: owner });
     await questionMasterCopy.setup(ZERO_ADDRESS, question, 0, festival);
@@ -60,8 +62,20 @@ contract('Culturestake', ([_, owner, attacker]) => {
   });
 
   it('owner can create festival', async () => {
-    await culturestake.initFestival(festival, timestamp(), endTime, { from: owner });
+    await culturestake.initFestival(festival, validStartTime(), endTime, { from: owner });
     ((await culturestake.getFestival(festival))[0]).should.be.equal(true);
+  });
+
+  it('owner cant create festival that starts in the past', async () => {
+    await assertRevert(
+      culturestake.initFestival(festival, validStartTime() - 100, endTime, { from: owner }),
+    );
+  });
+
+  it('owner cant create festival that ends before it starts', async () => {
+    await assertRevert(
+      culturestake.initFestival(festival, validStartTime(), validStartTime() - 100, { from: owner }),
+    );
   });
 
   it('creating festival should emit InitFestival', async () => {
@@ -92,7 +106,8 @@ contract('Culturestake', ([_, owner, attacker]) => {
   describe('after festival is created', () => {
     beforeEach(async () => {
       startTime = await culturestake.getTimestamp();
-      endTime = parseInt(startTime, 10) + duration;
+      startTime = parseInt(startTime, 10) + 10;
+      endTime = startTime + duration;
       await culturestake.initFestival(festival, startTime, endTime, { from: owner });
     });
 
@@ -119,6 +134,7 @@ contract('Culturestake', ([_, owner, attacker]) => {
     });
 
     it('isActiveFestival should return true for active festivals', async () => {
+      await increase(15);
       (await culturestake.isActiveFestival(festival)).should.be.equal(true);
     });
 
@@ -137,7 +153,7 @@ contract('Culturestake', ([_, owner, attacker]) => {
     });
 
     it('isActiveFestival should return false for expired festivals', async () => {
-      await increase(duration + 1);
+      await increase(duration + 11);
       (await culturestake.isActiveFestival(festival)).should.be.equal(false);
     });
 

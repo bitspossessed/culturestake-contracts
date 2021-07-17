@@ -1,6 +1,6 @@
 {
   "name": "culturestake-contracts",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "Culturestake contracts for quadratic voting",
   "main": "index.js",
   "scripts": {
@@ -33,6 +33,7 @@
   "dependencies": {
     "ethereumjs-abi": "^0.6.8",
     "ethereumjs-util": "^6.2.0",
+    "ganache": "^6.4.4",
     "openzeppelin-solidity": "^2.5.0",
     "solidity-sha3": "^0.4.1",
     "web3": "^1.2.6"
