@@ -104,7 +104,7 @@ contract Question {
   /// @return The total vote power this answer received
   /// @return The total vote tokens this answer received
   /// @return The total users who engaged with this answer
-  function getAnswer(bytes32 _answer) public returns (bool, bool, uint256, uint256, uint256) {
+  function getAnswer(bytes32 _answer) public view returns (bool, bool, uint256, uint256, uint256) {
     return (
       answers[_answer].inited,
       answers[_answer].deactivated,

@@ -133,7 +133,7 @@ contract Culturestake is Admin {
   function getHash(
     bytes32[] memory _answers,
     uint256 _nonce
-  ) public view returns (bytes32) {
+  ) public pure returns (bytes32) {
     return keccak256(abi.encode(_answers, _nonce));
   }
 

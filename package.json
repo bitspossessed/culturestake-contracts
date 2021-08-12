@@ -36,6 +36,7 @@
     "ganache": "^6.4.4",
     "openzeppelin-solidity": "^2.5.0",
     "solidity-sha3": "^0.4.1",
+    "truffle-hdwallet-provider": "^1.0.17",
     "web3": "^1.2.6"
   }
 }
